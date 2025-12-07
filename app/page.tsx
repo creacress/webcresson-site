@@ -7,7 +7,7 @@ import { SeasonalPromo } from "@/components/marketing/SeasonalPromo";
 // Si tu utilises les badges plus tard :
 // import { SeasonalBadge } from "@/components/seasonal/SeasonalTheme";
 
-{/* PROMO SAISONNIÈRE / SOLDES */ }
+{/* PROMO SAISONNIÈRE / SOLDES */}
 <SeasonalPromo
   variant="sale"
   label="Hiver 2025"
@@ -21,7 +21,6 @@ import { SeasonalPromo } from "@/components/marketing/SeasonalPromo";
 
 export default function HomePage() {
   return (
-    <SeasonalWrapper season="noel" withSnow>
       <div className="space-y-20 lg:space-y-24">
         {/* HERO */}
         <section className="grid gap-10 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
@@ -67,7 +66,6 @@ export default function HomePage() {
               </span>
             </h1>
 
-
             <p className="text-sm text-slate-600 dark:text-slate-300 sm:text-base">
               WebCressonTech conçoit des workflows n8n, des intégrations IA et des
               Website optimisés SEO pour les PME, freelances et
@@ -91,7 +89,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Audit offert : cartographie de tes process, pistes d’automatisation,
+              Audit offert : cartographie de vos process, pistes d’automatisation,
               priorisation et recommandations SEO.
             </p>
           </div>
@@ -132,12 +130,12 @@ export default function HomePage() {
             <Card
               eyebrow="IA"
               title="IA intégrée à votre quotidien"
-              description="Pas de chatbot gadget : des assistants IA connectés à tes données et tes process."
+              description="Pas de chatbot gadget : des assistants IA connectés à vos données et vos process."
             >
               <ul className="mt-2 space-y-1.5 text-xs">
                 <li>• Résumés de docs et comptes-rendus</li>
                 <li>• Génération de contenus maîtrisés</li>
-                <li>• Aide à la décision à partir de tes données</li>
+                <li>• Aide à la décision à partir de vos données</li>
               </ul>
             </Card>
             <Card
@@ -154,12 +152,12 @@ export default function HomePage() {
             <Card
               eyebrow="Stripe"
               title="Facturation simplifiée"
-              description="Stripe pour encaisser tes prestations, abonnements ou packs d’accompagnement."
+              description="Stripe pour encaisser vos prestations, abonnements ou packs d’accompagnement."
             >
               <ul className="mt-2 space-y-1.5 text-xs">
                 <li>• Liens de paiement sécurisés</li>
                 <li>• Abonnements récurrents</li>
-                <li>• Intégration avec tes outils comptables</li>
+                <li>• Intégration avec vos outils comptables</li>
               </ul>
             </Card>
             <Card
@@ -176,7 +174,7 @@ export default function HomePage() {
             <Card
               eyebrow="Accompagnement"
               title="Pas juste un livrable"
-              description="Tu n’es pas laissé seul avec un setup incompréhensible : on prend le temps de t’expliquer."
+              description="Vous n’êtes pas laissé seul avec un setup incompréhensible : on prend le temps de vous expliquer."
             >
               <ul className="mt-2 space-y-1.5 text-xs">
                 <li>• Sessions d’onboarding</li>
@@ -219,7 +217,7 @@ export default function HomePage() {
             <Card
               eyebrow="Stack"
               title="DB, n8n, IA, Stripe, Next.js"
-              description="On assemble un stack moderne en restant pragmatique : ce qui t’apporte du ROI en premier passe en priorité."
+              description="On assemble un stack moderne en restant pragmatique : ce qui vous apporte du ROI en premier passe en priorité."
             >
               <ul className="mt-2 space-y-1.5 text-xs">
                 <li>• Next.js 15+ pour le site et le blog</li>
@@ -234,7 +232,7 @@ export default function HomePage() {
               description="On commence par comprendre votre contexte avant d’écrire la moindre ligne de code."
             >
               <ol className="mt-2 space-y-1.5 text-xs list-decimal list-inside">
-                <li>Audit de tes process & outils actuels</li>
+                <li>Audit de vos process & outils actuels</li>
                 <li>Priorisation des quick wins</li>
                 <li>Mise en place des workflows & du site</li>
                 <li>Suivi des résultats et ajustements</li>
@@ -272,8 +270,8 @@ export default function HomePage() {
             />
             <Card
               eyebrow="Approche"
-              title="Pedagogie & transparence"
-              description="On t’explique ce qui est fait, pourquoi, et comment vous pouvez garder la main sur tes outils."
+              title="Pédagogie & transparence"
+              description="On vous explique ce qui est fait, pourquoi, et comment vous pouvez garder la main sur vos outils."
             />
           </div>
         </section>
@@ -312,103 +310,96 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* TESTIMONIALS (mock pour l’instant) */}
+        {/* PRICING TEASER – ALIGNÉ SUR /TARIFICATIONS */}
         <section className="space-y-8">
-          <div className="max-w-2xl space-y-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
-              TÉMOIGNAGES
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-              Ce que disent les clients accompagnés
-            </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300">
-              Retours sur des missions de prospection, d’automatisation et de
-              création de site Next.js.
-            </p>
-          </div>
+          <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-50 via-indigo-50 to-sky-50 p-6 shadow-sm shadow-slate-100 dark:border-slate-800 dark:bg-gradient-to-r dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:shadow-[0_18px_45px_rgba(0,0,0,0.7)]">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-2xl space-y-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
+                  TARIFS
+                </p>
+                <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
+                  Des offres lisibles, adaptées aux petites structures
+                </h2>
+                <p className="text-sm text-slate-600 dark:text-slate-300">
+                  Micro-entreprise, asso, PME : l’objectif est que l’investissement
+                  soit couvert par le temps gagné ou le chiffre d’affaires généré.
+                  Actuellement :{" "}
+                  <span className="font-semibold text-red-600 dark:text-red-400">
+                    Offre Noël ≈ -30 % sur les packs principaux.
+                  </span>
+                </p>
+              </div>
+              <Link
+                href="/tarifications"
+                className="inline-flex items-center justify-center rounded-full border border-indigo-500/40 bg-white/80 px-4 py-2 text-xs font-medium text-indigo-700 shadow-sm hover:border-indigo-500 hover:bg-indigo-50 dark:border-indigo-400/60 dark:bg-slate-950/60 dark:text-indigo-200 dark:hover:bg-slate-900"
+              >
+                Voir tous les détails des offres →
+              </Link>
+            </div>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            <Card
-              title="“On a enfin une vision claire”"
-              description="Mise en place d’un site vitrine + automatisation de la prise de contact et du suivi des leads."
-            >
-              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-                Responsable d’une PME de services, France
-              </p>
-            </Card>
-            <Card
-              title="“Moins de temps sur l’admin”"
-              description="Automatisation des factures, relances et archivage des documents avec n8n."
-            >
-              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-                Indépendant, secteur conseil
-              </p>
-            </Card>
-            <Card
-              title="“Une prospection beaucoup plus propre”"
-              description="Workflows de scraping, nettoyage, enrichissement et messages LinkedIn personnalisés."
-            >
-              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-                Agence B2B, France
-              </p>
-            </Card>
-          </div>
-        </section>
+            <div className="mt-6 grid gap-5 md:grid-cols-3">
+              {/* AUTOMATISATION */}
+              <Card
+                eyebrow="Automatisation"
+                title="Pack Automatisation & Prospection"
+                description="Pour remplacer les tâches répétitives (prospection, emails, CRM, admin) par des workflows no-code qui tournent seuls."
+              >
+                <p className="mt-3 text-xs text-slate-500 line-through dark:text-slate-500">
+                  À partir de 1 287 € HT
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
+                  À partir de 990 € HT
+                  <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
+                    Offre Noël
+                  </span>
+                </p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  Mise en place une fois. Maintenance en option dès 120 € HT / mois.
+                </p>
+              </Card>
 
-        {/* PRICING TEASER (comme section Pricing Plans) */}
-        <section className="space-y-8">
-          <div className="max-w-2xl space-y-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
-              TARIFS
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-              Des offres lisibles, adaptées aux petites structures
-            </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300">
-              Micro-entreprise, asso, PME : l’objectif est que l’investissement
-              soit couvert par le temps gagné ou le chiffre d’affaires généré.
-            </p>
-          </div>
+              {/* IA */}
+              <Card
+                eyebrow="IA"
+                title="Pack Assistant IA TPE / PME"
+                description="Une IA qui connaît votre activité : clients, docs, process — sans usine à gaz."
+              >
+                <p className="mt-3 text-xs text-slate-500 line-through dark:text-slate-500">
+                  À partir de 897 € HT
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
+                  À partir de 690 € HT
+                  <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
+                    Offre Noël
+                  </span>
+                </p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  Pack une fois. Maintenance IA en option dès 150 € HT / mois.
+                </p>
+              </Card>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            <Card
-              eyebrow="Starter"
-              title="Audit & premier workflow"
-              description="Pour tester concrètement l’automatisation ou l’IA sur un cas bien ciblé."
-            >
-              <p className="mt-3 text-sm font-semibold text-slate-900 dark:text-slate-50">
-                À partir de 490 € HT
-              </p>
-            </Card>
-            <Card
-              eyebrow="Site + automatisation"
-              title="Site Next.js + n8n"
-              description="Création d’un site vitrine optimisé + mise en place de scénarios clé."
-            >
-              <p className="mt-3 text-sm font-semibold text-slate-900 dark:text-slate-50">
-                Sur devis selon périmètre
-              </p>
-            </Card>
-            <Card
-              eyebrow="Accompagnement"
-              title="Suivi mensuel"
-              description="Itérations, nouvelles automatisations, suivi des KPI et support continu."
-            >
-              <p className="mt-3 text-sm font-semibold text-slate-900 dark:text-slate-50">
-                Formule récurrente, adaptable
-              </p>
-            </Card>
+              {/* SITE WEB */}
+              <Card
+                eyebrow="Site Web"
+                title="Pack Site Next.js & Présence Web"
+                description="Un site moderne, rapide, relié à votre CRM, avec une base SEO propre."
+              >
+                <p className="mt-3 text-xs text-slate-500 line-through dark:text-slate-500">
+                  À partir de 767 € HT
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
+                  À partir de 590 € HT
+                  <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
+                    Offre Noël
+                  </span>
+                </p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  Projet au forfait. Maintenance site & SEO dès 180 € HT / mois.
+                </p>
+              </Card>
+            </div>
           </div>
-
-          <p className="text-sm text-slate-600 dark:text-slate-300">
-            Tu veux les détails précis ?{" "}
-            <Link
-              href="/tarifications"
-              className="font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-300 dark:hover:text-indigo-200"
-            >
-              Voir la page Tarifications →
-            </Link>
-          </p>
         </section>
 
         {/* BLOG TEASER */}
@@ -433,11 +424,11 @@ export default function HomePage() {
             />
             <Card
               eyebrow="IA"
-              title="Utiliser l’IA pour assister, pas remplacer, tes process"
+              title="Utiliser l’IA pour assister, pas remplacer, vos process"
             />
             <Card
               eyebrow="SEO & Web"
-              title="Ce qu’un site Next.js bien pensé change pour ta visibilité"
+              title="Ce qu’un site Next.js bien pensé change pour votre visibilité"
             />
           </div>
 
@@ -459,8 +450,8 @@ export default function HomePage() {
               Besoin d’un coup de main pour cadrer votre projet ?
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-300">
-              Vous avez une idée assez claire de ce que tu veux faire (site, IA,
-              automatisation) mais tu ne sais pas par où commencer ? On peut en
+              Vous avez une idée assez claire de ce que vous voulez faire (site, IA,
+              automatisation) mais vous ne savez pas par où commencer ? On peut en
               parler sur un créneau rapide.
             </p>
 
@@ -489,7 +480,7 @@ export default function HomePage() {
           <form className="space-y-4 text-sm">
             <div>
               <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-                votre prénom
+                Votre prénom
               </label>
               <input
                 type="text"
@@ -507,7 +498,7 @@ export default function HomePage() {
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-                De quoi as-tu besoin ?
+                De quoi avez-vous besoin ?
               </label>
               <textarea
                 rows={4}
@@ -523,6 +514,5 @@ export default function HomePage() {
           </form>
         </section>
       </div>
-    </SeasonalWrapper>
   );
 }
