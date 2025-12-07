@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
 
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -9,7 +10,6 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { SnowOverlay } from "@/components/marketing/seasonal/SnowOverlay";
 import { CustomCursor } from "@/components/ui/CustomCursor";
-// (optionnel) composant qui pousse les page_view dans dataLayer
 import { GTMPageView } from "@/components/analytics/GTMPageView";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -44,7 +44,7 @@ export default function RootLayout({
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${GTM_ID}');
+            })(window,document,'script','dataLayer','${GTM_ID}');
             `}
           </Script>
         )}
@@ -67,7 +67,11 @@ export default function RootLayout({
 
         <ThemeProvider>
           <CustomCursor />
-          <GTMPageView />
+
+          {/* GTM page_view dans une zone de Suspense pour useSearchParams */}
+          <Suspense fallback={null}>
+            <GTMPageView />
+          </Suspense>
 
           <div className="relative z-10 flex min-h-screen flex-col">
             {/* Gradient de fond */}
@@ -80,9 +84,6 @@ export default function RootLayout({
             <div className="pointer-events-none fixed inset-0 z-0">
               <SnowOverlay density={70} />
             </div>
-
-            {/* Tracking page_view SPA si tu crées le composant */}
-            {/* <GTMPageView /> */}
 
             <Header />
 
