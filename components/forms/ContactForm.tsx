@@ -17,26 +17,47 @@ export function ContactForm() {
 
   const [loading, setLoading] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
-  const [feedback, setFeedback] = useState<null | { type: "ok" | "error"; text: string }>(null);
+  const [feedback, setFeedback] = useState<null | { type: "ok" | "error"; text: string }>(
+    null,
+  );
+
+  const isSuccess = feedback?.type === "ok";
+
+  const resetForm = () => {
+    setStep(1);
+    setPrenom("");
+    setNom("");
+    setEmail("");
+    setEntreprise("");
+    setSujet("");
+    setMessage("");
+    setSource("");
+    setLocalError(null);
+    setFeedback(null);
+  };
 
   const validateStep = (currentStep: 1 | 2 | 3): boolean => {
     if (currentStep === 1) {
       if (!prenom.trim() || !email.trim()) {
-        setLocalError("Ajoute au moins votre prénom et votre email pour continuer.");
+        setLocalError("Ajoutez au moins votre prénom et votre email pour continuer.");
         return false;
       }
     }
 
     if (currentStep === 2) {
       if (!sujet.trim()) {
-        setLocalError("Choisis un sujet principal pour que je sache par où commencer.");
+        setLocalError(
+          "Choisissez un sujet principal pour que je sache par où commencer.",
+        );
         return false;
       }
     }
 
     if (currentStep === 3) {
       if (!message.trim()) {
-        setLocalError("Donne quelques détails dans votre message pour que je puisse répondre.");
+        setLocalError(
+          "Ajoutez quelques détails dans votre message pour que je puisse vous répondre.",
+        );
         return false;
       }
     }
@@ -84,15 +105,15 @@ export function ContactForm() {
 
       setFeedback({
         type: "ok",
-        text: "Merci ! votre message a bien été envoyé. Je te réponds au plus vite.",
+        text: "Merci ! Votre message a bien été envoyé. Vous recevrez une réponse personnalisée rapidement.",
       });
 
-      // reset léger
+      // reset léger sur le corps
       setMessage("");
     } catch (_err) {
       setFeedback({
         type: "error",
-        text: "Impossible d’envoyer le message pour le moment. Réessaie un peu plus tard.",
+        text: "Impossible d’envoyer le message pour le moment. Réessayez un peu plus tard.",
       });
     } finally {
       setLoading(false);
@@ -103,16 +124,16 @@ export function ContactForm() {
 
   const currentStepLabel =
     step === 1
-      ? "Qui tu es"
+      ? "Qui vous êtes"
       : step === 2
       ? "Le sujet de votre message"
-      : "Ce que tu veux m’expliquer";
+      : "Ce que vous souhaitez m’expliquer";
 
   const helperSentence =
     step === 1
-      ? "On commence par tes coordonnées pour pouvoir te répondre."
+      ? "On commence par vos coordonnées pour pouvoir vous répondre."
       : step === 2
-      ? "Un sujet clair m’aide à te répondre rapidement."
+      ? "Un sujet clair m’aide à vous répondre rapidement."
       : "Deux ou trois phrases suffisent pour commencer.";
 
   return (
@@ -141,171 +162,212 @@ export function ContactForm() {
         </div>
       </div>
 
-      {localError && (
+      {localError && !isSuccess && (
         <p className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700 dark:border-rose-900/60 dark:bg-rose-950/40 dark:text-rose-200">
           {localError}
         </p>
       )}
 
-      {/* STEP 1 : identité */}
-      {step === 1 && (
-        <div className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-                Prénom *
-              </label>
-              <input
-                type="text"
-                value={prenom}
-                onChange={(e) => setPrenom(e.target.value)}
-                className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-                Nom
-              </label>
-              <input
-                type="text"
-                value={nom}
-                onChange={(e) => setNom(e.target.value)}
-                className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-              Email *
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-              Nom de l’entreprise / activité
-            </label>
-            <input
-              type="text"
-              value={entreprise}
-              onChange={(e) => setEntreprise(e.target.value)}
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* STEP 2 : sujet / source */}
-      {step === 2 && (
-        <div className="space-y-4">
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-              Sujet principal *
-            </label>
-            <select
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-              value={sujet}
-              onChange={(e) => setSujet(e.target.value)}
-            >
-              <option value="">Sélectionne un sujet…</option>
-              <option>Automatisation (prospection, emails, CRM…)</option>
-              <option>Intégration IA</option>
-              <option>Création / refonte de site</option>
-              <option>SEO & présence web</option>
-              <option>Autre / pas sûr</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-              Comment as-tu entendu parler de WebCressonTech ?
-            </label>
-            <input
-              type="text"
-              placeholder="Ex : LinkedIn, bouche-à-oreille, recherche Google..."
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* STEP 3 : message */}
-      {step === 3 && (
-        <div className="space-y-3">
-          <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-            Message *
-          </label>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400">
-            vous pouvez par exemple expliquer :
-            <br />
-            • où tu perds du temps aujourd’hui
-            <br />
-            • ce que tu aimerais améliorer
-            <br />
-            • les outils que tu utilises déjà
-          </p>
-          <textarea
-            rows={5}
-            placeholder="Ex : je passe beaucoup de temps sur [tâche], j’aimerais [objectif], voici les outils que j’utilise aujourd’hui..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-          />
-        </div>
-      )}
-
       {feedback && (
-        <p
-          className={`text-xs ${
+        <div
+          className={`mt-1 flex gap-3 rounded-2xl border px-3 py-3 text-xs sm:px-4 sm:py-3 ${
             feedback.type === "ok"
-              ? "text-emerald-600 dark:text-emerald-400"
-              : "text-rose-600 dark:text-rose-400"
+              ? "border-emerald-200 bg-emerald-50/80 text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-100"
+              : "border-rose-200 bg-rose-50/80 text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/40 dark:text-rose-100"
           }`}
         >
-          {feedback.text}
-        </p>
+          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/70 dark:bg-black/40">
+            {feedback.type === "ok" ? (
+              <svg
+                className="h-4 w-4"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M16.704 5.29a1 1 0 0 0-1.408-1.42L8 11.17 4.704 7.874a1 1 0 0 0-1.408 1.42l4 4a1 1 0 0 0 1.408 0l8-8z"
+                  fill="currentColor"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-4 w-4"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M10 2a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8zm0 4a1 1 0 0 1 .993.883L11 7v4a1 1 0 0 1-1.993.117L9 11V7a1 1 0 0 1 1-1zm0 8a1.25 1.25 0 1 1 1.25-1.25A1.25 1.25 0 0 1 10 14z"
+                  fill="currentColor"
+                />
+              </svg>
+            )}
+          </div>
+          <div className="space-y-1">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em]">
+              {feedback.type === "ok" ? "Message envoyé" : "Une erreur est survenue"}
+            </p>
+            <p className="text-xs leading-relaxed">{feedback.text}</p>
+            {feedback.type === "ok" && (
+              <button
+                type="button"
+                onClick={resetForm}
+                className="mt-2 inline-flex items-center gap-1 rounded-full border border-emerald-300/70 bg-white/70 px-3 py-1.5 text-[11px] font-medium text-emerald-800 hover:bg-emerald-50 dark:border-emerald-700 dark:bg-transparent dark:text-emerald-100 dark:hover:bg-emerald-900/40"
+              >
+                Envoyer un nouveau message
+              </button>
+            )}
+          </div>
+        </div>
       )}
 
-      {/* Actions */}
-      <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        {step > 1 && (
-          <button
-            type="button"
-            onClick={() => {
-              setLocalError(null);
-              setStep((prev) => (prev - 1) as 1 | 2 | 3);
-            }}
-            className="inline-flex items-center justify-center rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900"
-          >
-            ← Revenir à l’étape précédente
-          </button>
-        )}
+      {/* Si succès → on n’affiche plus les étapes, juste le feedback */}
+      {!isSuccess && (
+        <>
+          {/* STEP 1 : identité */}
+          {step === 1 && (
+            <div className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                    Prénom *
+                  </label>
+                  <input
+                    type="text"
+                    value={prenom}
+                    onChange={(e) => setPrenom(e.target.value)}
+                    className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                    Nom
+                  </label>
+                  <input
+                    type="text"
+                    value={nom}
+                    onChange={(e) => setNom(e.target.value)}
+                    className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                  />
+                </div>
+              </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
-        >
-          {loading
-            ? "Envoi en cours..."
-            : step < TOTAL_STEPS
-            ? "Continuer"
-            : "Envoyer le message"}
-        </button>
-      </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                />
+              </div>
 
-      <p className="text-[11px] text-slate-500 dark:text-slate-400">
-        Bientôt : ce formulaire sera relié à n8n pour créer un contact dans votre CRM
-        / Notion et déclencher un workflow de suivi.
-      </p>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                  Nom de l’entreprise / activité
+                </label>
+                <input
+                  type="text"
+                  value={entreprise}
+                  onChange={(e) => setEntreprise(e.target.value)}
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* STEP 2 : sujet / source */}
+          {step === 2 && (
+            <div className="space-y-4">
+              <div>
+                <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                  Sujet principal *
+                </label>
+                <select
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                  value={sujet}
+                  onChange={(e) => setSujet(e.target.value)}
+                >
+                  <option value="">Sélectionnez un sujet…</option>
+                  <option>Automatisation (prospection, emails, CRM…)</option>
+                  <option>Intégration IA</option>
+                  <option>Création / refonte de site</option>
+                  <option>SEO & présence web</option>
+                  <option>Autre / pas sûr</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                  Comment avez-vous entendu parler de WebCressonTech ?
+                </label>
+                <input
+                  type="text"
+                  placeholder="Ex : LinkedIn, bouche-à-oreille, recherche Google..."
+                  value={source}
+                  onChange={(e) => setSource(e.target.value)}
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3 : message */}
+          {step === 3 && (
+            <div className="space-y-3">
+              <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                Message *
+              </label>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                vous pouvez par exemple expliquer :
+                <br />
+                • où vous perdez du temps aujourd’hui
+                <br />
+                • ce que vous aimeriez améliorer
+                <br />
+                • les outils que vous utilisez déjà
+              </p>
+              <textarea
+                rows={5}
+                placeholder="Ex : je passe beaucoup de temps sur [tâche], j’aimerais [objectif], voici les outils que j’utilise aujourd’hui..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+              />
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            {step > 1 && (
+              <button
+                type="button"
+                onClick={() => {
+                  setLocalError(null);
+                  setStep((prev) => (prev - 1) as 1 | 2 | 3);
+                }}
+                className="inline-flex items-center justify-center rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900"
+              >
+                ← Revenir à l’étape précédente
+              </button>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+            >
+              {loading
+                ? "Envoi en cours..."
+                : step < TOTAL_STEPS
+                ? "Continuer"
+                : "Envoyer le message"}
+            </button>
+          </div>
+        </>
+      )}
     </form>
   );
 }

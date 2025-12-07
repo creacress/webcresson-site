@@ -26,6 +26,20 @@ export function AuditForm() {
   const [localError, setLocalError] = useState<string | null>(null);
   const [message, setMessage] = useState<null | { type: "ok" | "error"; text: string }>(null);
 
+  const isSuccess = message?.type === "ok";
+
+  const resetForm = () => {
+    setStep(1);
+    setPrenom("");
+    setEntreprise("");
+    setEmail("");
+    setSite("");
+    setChecked([]);
+    setContexte("");
+    setLocalError(null);
+    setMessage(null);
+  };
+
   const toggleSujet = (label: string) => {
     setChecked((prev) =>
       prev.includes(label) ? prev.filter((s) => s !== label) : [...prev, label],
@@ -35,21 +49,23 @@ export function AuditForm() {
   const validateStep = (currentStep: 1 | 2 | 3): boolean => {
     if (currentStep === 1) {
       if (!prenom.trim() || !email.trim()) {
-        setLocalError("Ajoute au moins votre prénom et votre email pour continuer.");
+        setLocalError("Ajoutez au moins votre prénom et votre email pour continuer.");
         return false;
       }
     }
 
     if (currentStep === 2) {
       if (checked.length === 0) {
-        setLocalError("Choisis au moins un sujet pour que l’audit soit pertinent.");
+        setLocalError("Sélectionnez au moins un sujet pour que l’audit soit pertinent.");
         return false;
       }
     }
 
     if (currentStep === 3) {
       if (!contexte.trim()) {
-        setLocalError("Décris votre contexte en quelques lignes pour que je puisse t’aider.");
+        setLocalError(
+          "Décrivez votre contexte en quelques lignes pour que je puisse vous aider.",
+        );
         return false;
       }
     }
@@ -97,15 +113,15 @@ export function AuditForm() {
 
       setMessage({
         type: "ok",
-        text: "Merci ! Ta demande d’audit a bien été envoyée. Je reviens vers toi rapidement.",
+        text: "Merci ! Votre demande d’audit a bien été envoyée. Vous recevrez une réponse personnalisée sous 24 à 48h (jours ouvrés).",
       });
 
-      // reset léger
+      // reset léger côté contenu
       setContexte("");
     } catch (_err) {
       setMessage({
         type: "error",
-        text: "Impossible d’envoyer ta demande pour le moment. Réessaie dans quelques minutes.",
+        text: "Impossible d’envoyer votre demande pour le moment. Réessayez dans quelques minutes.",
       });
     } finally {
       setLoading(false);
@@ -118,15 +134,15 @@ export function AuditForm() {
     step === 1
       ? "Infos de base"
       : step === 2
-      ? "Sur quoi tu veux qu’on se concentre"
-      : "votre contexte";
+      ? "Sur quoi vous souhaitez que l’on se concentre"
+      : "Votre contexte";
 
   const helperSentence =
     step === 1
-      ? "30 secondes pour poser les infos de base."
+      ? "30 secondes pour poser les bases."
       : step === 2
-      ? "Choisis ce qui t’intéresse, ça m’aide à prioriser."
-      : "Quelques lignes suffisent, pas besoin de roman.";
+      ? "Sélectionnez ce qui vous parle le plus, cela m’aide à prioriser."
+      : "Quelques lignes suffisent, pas besoin d’un roman.";
 
   return (
     <form
@@ -154,162 +170,204 @@ export function AuditForm() {
         </div>
       </div>
 
-      {localError && (
+      {localError && !isSuccess && (
         <p className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700 dark:border-rose-900/60 dark:bg-rose-950/40 dark:text-rose-200">
           {localError}
         </p>
       )}
 
-      {/* STEP 1 */}
-      {step === 1 && (
-        <div className="space-y-4">
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-              votre prénom *
-            </label>
-            <input
-              type="text"
-              value={prenom}
-              onChange={(e) => setPrenom(e.target.value)}
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-            />
+      {message && (
+        <div
+          className={`mt-1 flex gap-3 rounded-2xl border px-3 py-3 text-xs sm:px-4 sm:py-3 ${
+            message.type === "ok"
+              ? "border-emerald-200 bg-emerald-50/80 text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-100"
+              : "border-rose-200 bg-rose-50/80 text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/40 dark:text-rose-100"
+          }`}
+        >
+          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/70 dark:bg-black/40">
+            {message.type === "ok" ? (
+              <svg
+                className="h-4 w-4"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M16.704 5.29a1 1 0 0 0-1.408-1.42L8 11.17 4.704 7.874a1 1 0 0 0-1.408 1.42l4 4a1 1 0 0 0 1.408 0l8-8z"
+                  fill="currentColor"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-4 w-4"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M10 2a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8zm0 4a1 1 0 0 1 .993.883L11 7v4a1 1 0 0 1-1.993.117L9 11V7a1 1 0 0 1 1-1zm0 8a1.25 1.25 0 1 1 1.25-1.25A1.25 1.25 0 0 1 10 14z"
+                  fill="currentColor"
+                />
+              </svg>
+            )}
           </div>
-
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-              Nom de votre entreprise (ou activité)
-            </label>
-            <input
-              type="text"
-              value={entreprise}
-              onChange={(e) => setEntreprise(e.target.value)}
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-              Email de contact *
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-              Site web (si tu en as un)
-            </label>
-            <input
-              type="url"
-              placeholder="https://..."
-              value={site}
-              onChange={(e) => setSite(e.target.value)}
-              className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-            />
+          <div className="space-y-1">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em]">
+              {message.type === "ok" ? "Demande envoyée" : "Une erreur est survenue"}
+            </p>
+            <p className="text-xs leading-relaxed">{message.text}</p>
+            {message.type === "ok" && (
+              <button
+                type="button"
+                onClick={resetForm}
+                className="mt-2 inline-flex items-center gap-1 rounded-full border border-emerald-300/70 bg-white/70 px-3 py-1.5 text-[11px] font-medium text-emerald-800 hover:bg-emerald-50 dark:border-emerald-700 dark:bg-transparent dark:text-emerald-100 dark:hover:bg-emerald-900/40"
+              >
+                Envoyer une nouvelle demande
+              </button>
+            )}
           </div>
         </div>
       )}
 
-      {/* STEP 2 */}
-      {step === 2 && (
-        <div className="space-y-3">
-          <label className="block text-xs font-medium text-slate-700 dark:text-slate-200">
-            Quels sujets t’intéressent le plus ? *
-          </label>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400">
-            vous pouvez en sélectionner plusieurs : ça m’aide à voir où l’impact sera le plus fort.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {SUBJECT_OPTIONS.map((label) => {
-              const active = checked.includes(label);
-              return (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() => toggleSujet(label)}
-                  className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition
+      {/* Si succès → on n’affiche plus les étapes, juste le message */}
+      {!isSuccess && (
+        <>
+          {/* STEP 1 */}
+          {step === 1 && (
+            <div className="space-y-4">
+              <div>
+                <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                  votre prénom *
+                </label>
+                <input
+                  type="text"
+                  value={prenom}
+                  onChange={(e) => setPrenom(e.target.value)}
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                  Nom de votre entreprise (ou activité)
+                </label>
+                <input
+                  type="text"
+                  value={entreprise}
+                  onChange={(e) => setEntreprise(e.target.value)}
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                  Email de contact *
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                  Site web (si vous en avez un)
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://..."
+                  value={site}
+                  onChange={(e) => setSite(e.target.value)}
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* STEP 2 */}
+          {step === 2 && (
+            <div className="space-y-3">
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-200">
+                Quels sujets vous intéressent le plus ? *
+              </label>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                vous pouvez en sélectionner plusieurs : cela m’aide à voir où l’impact sera
+                le plus fort.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {SUBJECT_OPTIONS.map((label) => {
+                  const active = checked.includes(label);
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => toggleSujet(label)}
+                      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition
                     ${
                       active
                         ? "border-indigo-500 bg-indigo-50 text-indigo-700 dark:border-indigo-400 dark:bg-indigo-950/40 dark:text-indigo-100"
                         : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                     }`}
-                >
-                  {active ? "✓" : "+"} <span>{label}</span>
-                </button>
-              );
-            })}
+                    >
+                      {active ? "✓" : "+"} <span>{label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3 */}
+          {step === 3 && (
+            <div className="space-y-3">
+              <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
+                Décrivez votre contexte en quelques lignes *
+              </label>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Par exemple : où vous perdez du temps, ce qui vous frustre, comment vous
+                travaillez aujourd’hui, ce que vous aimeriez déléguer à un système.
+              </p>
+              <textarea
+                rows={5}
+                value={contexte}
+                onChange={(e) => setContexte(e.target.value)}
+                placeholder="Ex : je passe beaucoup de temps sur la prospection mail, mon site ne convertit pas vraiment, je dois tout faire à la main côté admin..."
+                className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+              />
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            {step > 1 && (
+              <button
+                type="button"
+                onClick={() => {
+                  setLocalError(null);
+                  setStep((prev) => (prev - 1) as 1 | 2 | 3);
+                }}
+                className="inline-flex items-center justify-center rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900"
+              >
+                ← Revenir à l’étape précédente
+              </button>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+            >
+              {loading
+                ? "Envoi en cours..."
+                : step < TOTAL_STEPS
+                ? "Continuer"
+                : "Envoyer la demande d’audit"}
+            </button>
           </div>
-        </div>
+        </>
       )}
-
-      {/* STEP 3 */}
-      {step === 3 && (
-        <div className="space-y-3">
-          <label className="mb-1 block text-xs font-medium text-slate-700 dark:text-slate-200">
-            Décris votre contexte en quelques lignes *
-          </label>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400">
-            Par exemple : où tu perds du temps, ce qui te frustre, comment tu travailles
-            aujourd’hui, ce que tu aimerais déléguer à un système.
-          </p>
-          <textarea
-            rows={5}
-            value={contexte}
-            onChange={(e) => setContexte(e.target.value)}
-            placeholder="Ex : je passe beaucoup de temps sur la prospection mail, mon site ne convertit pas vraiment, je dois tout faire à la main côté admin..."
-            className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
-          />
-        </div>
-      )}
-
-      {message && (
-        <p
-          className={`text-xs ${
-            message.type === "ok"
-              ? "text-emerald-600 dark:text-emerald-400"
-              : "text-rose-600 dark:text-rose-400"
-          }`}
-        >
-          {message.text}
-        </p>
-      )}
-
-      {/* Actions */}
-      <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        {step > 1 && (
-          <button
-            type="button"
-            onClick={() => {
-              setLocalError(null);
-              setStep((prev) => (prev - 1) as 1 | 2 | 3);
-            }}
-            className="inline-flex items-center justify-center rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900"
-          >
-            ← Revenir à l’étape précédente
-          </button>
-        )}
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
-        >
-          {loading
-            ? "Envoi en cours..."
-            : step < TOTAL_STEPS
-            ? "Continuer"
-            : "Envoyer la demande d’audit"}
-        </button>
-      </div>
-
-      <p className="text-[11px] text-slate-500 dark:text-slate-400">
-        Bientôt : ce formulaire créera automatiquement une fiche dans votre CRM / Notion
-        et déclenchera un workflow n8n pour le suivi.
-      </p>
     </form>
   );
 }
