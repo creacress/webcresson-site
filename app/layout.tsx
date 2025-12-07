@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -96,6 +97,9 @@ export default function RootLayout({
             <Footer />
           </div>
         </ThemeProvider>
+
+        {/* Vercel Web Analytics : traque toutes les pages */}
+        <Analytics />
       </body>
     </html>
   );
