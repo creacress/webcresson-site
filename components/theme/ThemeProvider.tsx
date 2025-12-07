@@ -7,9 +7,8 @@ import { ReactNode } from "react";
 export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemesProvider
-      attribute="data-theme" // <= important avec @custom-variant dark (...)
-      defaultTheme="system"
-      enableSystem
+      defaultTheme="dark"
+      enableSystem={false}  
     >
       {children}
     </NextThemesProvider>
