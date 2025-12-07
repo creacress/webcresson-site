@@ -12,19 +12,28 @@ function formatArticleHtml(raw: string): string {
 
   let html = raw;
 
-  // Paragraphes lisibles
+  // 1) On coupe tout ce qui ressemble à une note de type [CTA ...]
+  html = html.replace(/\[CTA[\s\S]*$/i, "");
+
+  // 2) On enlève un bloc de fin type "Audit gratuit ..." généré par l'IA
+  html = html.replace(
+    /<p>Audit gratuit[\s\S]*?<\/p>/i,
+    ""
+  );
+
+  // 3) Paragraphes lisibles
   html = html.replace(
     /<p>/g,
     '<p class="mb-4 text-[15px] leading-relaxed text-slate-100">'
   );
 
-  // Titres H2 = grosses sections avec séparateur
+  // Titres H2 = grosses sections
   html = html.replace(
     /<h2>/g,
     '<hr class="my-10 border-slate-800/80" /><h2 class="mt-2 mb-4 text-xl font-semibold text-slate-50">'
   );
 
-  // Titres H3 = sous-sections
+  // Titres H3
   html = html.replace(
     /<h3>/g,
     '<h3 class="mt-6 mb-3 text-lg font-semibold text-slate-100">'
@@ -58,6 +67,7 @@ function formatArticleHtml(raw: string): string {
 
   return html;
 }
+
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
