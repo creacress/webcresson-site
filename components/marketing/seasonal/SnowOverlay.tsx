@@ -1,14 +1,33 @@
-// components/seasonal/SnowOverlay.tsx
 "use client";
 
 import type { CSSProperties } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface SnowOverlayProps {
-  density?: number; // nombre de flocons
+  density?: number; // densité max desktop
 }
 
 export function SnowOverlay({ density = 60 }: SnowOverlayProps) {
-  const flakes = Array.from({ length: density });
+  const [count, setCount] = useState(density);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mqMobile = window.matchMedia("(max-width: 768px)");
+    const mqReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (mqReduced.matches) {
+      setCount(0);
+      return;
+    }
+
+    // ex : 20 flocons max sur mobile
+    setCount(mqMobile.matches ? Math.min(20, density) : density);
+  }, [density]);
+
+  const flakes = useMemo(() => Array.from({ length: count }), [count]);
+
+  if (count === 0) return null;
 
   return (
     <div className="snow-overlay">
