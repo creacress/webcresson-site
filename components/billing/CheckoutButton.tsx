@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-type Plan = "automation" | "ia" | "site";
+type Plan = "automatisation" | "ia" | "site";
 
 type CheckoutButtonProps = {
   plan: Plan;
@@ -11,7 +11,7 @@ type CheckoutButtonProps = {
 };
 
 const paymentLinks: Record<Plan, string | undefined> = {
-  automation: process.env.NEXT_PUBLIC_STRIPE_LINK_AUTOMATION,
+  automatisation: process.env.NEXT_PUBLIC_STRIPE_LINK_AUTOMATION,
   ia: process.env.NEXT_PUBLIC_STRIPE_LINK_IA,
   site: process.env.NEXT_PUBLIC_STRIPE_LINK_SITE,
 };

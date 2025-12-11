@@ -60,7 +60,7 @@ export default function TarificationsPage() {
       <section className="grid gap-6 lg:grid-cols-3">
         {/* AUTOMATISATION */}
         <PricingCard
-          plan="automation"
+          plan="automatisation"
           category="AUTOMATISATION"
           label="Pack Automatisation & Prospection"
           description="Pour remplacer les tâches répétitives (prospection, emails, CRM, admin) par des workflows no-code qui tournent tout seuls."
@@ -227,7 +227,7 @@ export default function TarificationsPage() {
 /* --------- Components --------- */
 
 type PricingCardProps = {
-  plan: "automation" | "ia" | "site";
+  plan: "automatisation" | "ia" | "site";
   category: string;
   label: string;
   description: string;

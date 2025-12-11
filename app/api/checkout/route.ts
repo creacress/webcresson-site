@@ -13,7 +13,7 @@ const stripe = new Stripe(stripeSecretKey, {
 });
 
 const PLAN_TO_PRICE: Record<string, string | undefined> = {
-  automation: process.env.STRIPE_PRICE_AUTOMATION,
+  automatisation: process.env.STRIPE_PRICE_AUTOMATION,
   ia: process.env.STRIPE_PRICE_IA,
   site: process.env.STRIPE_PRICE_SITE,
 };
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { plan, customerEmail } = body as {
-      plan?: "automation" | "ia" | "site";
+      plan?: "automatisation" | "ia" | "site";
       customerEmail?: string;
     };
 

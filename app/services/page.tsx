@@ -152,7 +152,7 @@ export default function ServicesPage() {
               </p>
               <div className="flex flex-wrap gap-2">
                 <Link
-                  href="/services/automation"
+                  href="/services/automatisation"
                   className="inline-flex items-center rounded-full bg-slate-900 px-4 py-1.5 text-[11px] font-medium text-slate-50 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
                 >
                   Découvrir le service Automatisation →
