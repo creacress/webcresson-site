@@ -110,7 +110,7 @@ export default function TarificationsPage() {
         <PricingCard
           plan="site"
           category="SITE WEB & PRÉSENCE EN LIGNE"
-          label="PackSite web moderne & présence web"
+          label="Pack Site web moderne & présence web"
           description="Pour un site moderne, rapide, relié à ton CRM, avec une base SEO propre et un vrai suivi de ta présence sur le web."
           originalPrice="à partir de 767 € HT"
           promoPrice="à partir de 590 €"

@@ -382,7 +382,7 @@ export default function HomePage() {
               {/* SITE WEB */}
               <Card
                 eyebrow="Site Web"
-                title="PackSite web moderne & Présence Web"
+                title="Pack Site web moderne & Présence Web"
                 description="Un site moderne, rapide, relié à votre CRM, avec une base SEO propre."
               >
                 <p className="mt-3 text-xs text-slate-500 line-through dark:text-slate-500">
