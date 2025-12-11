@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { trackLeadFormSubmit } from "@/lib/gtm";
 
 const TOTAL_STEPS = 3 as const;
 
@@ -102,6 +103,9 @@ export function ContactForm() {
       if (!res.ok || !data.ok) {
         throw new Error(data?.error || "Erreur inconnue");
       }
+
+      // 🔹 Tracking lead + conversion Ads
+      trackLeadFormSubmit("contact");
 
       setFeedback({
         type: "ok",

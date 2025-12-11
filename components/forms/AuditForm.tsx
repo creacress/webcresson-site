@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { trackLeadFormSubmit } from "@/lib/gtm";
 
 const SUBJECT_OPTIONS = [
   "Automatisation (prospection / emails / CRM)",
@@ -24,7 +25,9 @@ export function AuditForm() {
 
   const [loading, setLoading] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
-  const [message, setMessage] = useState<null | { type: "ok" | "error"; text: string }>(null);
+  const [message, setMessage] = useState<null | { type: "ok" | "error"; text: string }>(
+    null,
+  );
 
   const isSuccess = message?.type === "ok";
 
@@ -110,6 +113,9 @@ export function AuditForm() {
       if (!res.ok || !data.ok) {
         throw new Error(data?.error || "Erreur inconnue");
       }
+
+      // 🔹 Tracking lead + conversion Ads
+      trackLeadFormSubmit("audit");
 
       setMessage({
         type: "ok",
