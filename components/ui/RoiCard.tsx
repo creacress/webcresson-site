@@ -16,9 +16,10 @@ export function RoiCard() {
   return (
     <Card
       eyebrow="ROI"
-      title="Calcule votre ROI en quelques secondes"
-      description="Estimation simple du gain potentiel grâce à l’automatisation de tes tâches récurrentes."
+      title="Calculez votre ROI en quelques secondes"
+      description="Estimation rapide du gain potentiel grâce à l’automatisation de vos tâches récurrentes."
     >
+
       <div className="flex flex-col gap-3">
         <label className="text-xs font-medium text-slate-700 dark:text-slate-200">
           Heures économisées par mois

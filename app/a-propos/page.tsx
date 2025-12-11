@@ -26,7 +26,7 @@ export default function AProposPage() {
           </h1>
           <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300 sm:text-base">
             WebCressonTech accompagne les TPE, PME, micro-entrepreneurs et associations qui
-            veulent automatiser, intégrer l’IA et avoir un site Next.js propre, sans se perdre
+            veulent automatiser, intégrer l’IA et avoir unSite web moderne propre, sans se perdre
             dans la technique ou le jargon.
           </p>
         </div>
@@ -199,7 +199,7 @@ export default function AProposPage() {
         <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
           On peut commencer par un audit gratuit de tes process, de votre site et de tes idées
           d’IA. Ensuite, tu décides si tu veux avancer ensemble sur un pack Automatisation, IA
-          ou Site Next.js.
+          ouSite web moderne.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link

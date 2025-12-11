@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/forms/ContactForm";
 export const metadata = {
   title: "Contact | WebCressonTech",
   description:
-    "Contacte WebCressonTech pour parler d’automatisation, d’intégration IA, de création de site Next.js ou pour poser tes questions.",
+    "Contacte WebCressonTech pour parler d’automatisation, d’intégration IA, de création deSite web moderne ou pour poser tes questions.",
 };
 
 export default function ContactPage() {
@@ -79,7 +79,7 @@ export default function ContactPage() {
             <ul className="mt-2 space-y-1.5 text-xs">
               <li>• Automatiser la prospection ou les relances clients</li>
               <li>• Mettre en place un assistant IA pour un métier précis</li>
-              <li>• Créer / refondre un site Next.js plus clair et plus SEO</li>
+              <li>• Créer / refondre unSite web moderne plus clair et plus SEO</li>
               <li>• Connecter site, CRM, outils internes et reporting</li>
               <li>• Structurer une petite stack simple mais efficace</li>
             </ul>
