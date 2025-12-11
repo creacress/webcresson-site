@@ -3,7 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Services | WebCressonTech",
   description:
-    "Automatisation n8n, intégration IA, création de Website SEO et accompagnement digital pour TPE, PME et indépendants.",
+    "Automatisation n8n, intégration IA, création de sites web modernes et marketing digital pour TPE, PME et indépendants.",
 };
 
 export default function ServicesPage() {
@@ -17,16 +17,16 @@ export default function ServicesPage() {
         </p>
 
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
-          Des solutions modernes pour automatiser,
+          Des services pensés pour
           <span className="block bg-gradient-to-r from-indigo-500 via-sky-500 to-cyan-400 bg-clip-text text-transparent">
-            accélérer et structurer votre business.
+            automatiser, structurer et rendre visible votre activité.
           </span>
         </h1>
 
         <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300 sm:text-base">
-          Automatisation no-code, IA opérationnelle, sites web Next.js et accompagnement
-          digital : WebCressonTech aide les TPE, PME et indépendants à gagner du temps,
-          rassurer leurs clients et structurer leurs workflows sans complexité technique.
+          Automatisation no-code, IA appliquée, sites web Next.js et marketing digital : 
+          WebCressonTech vous aide à gagner du temps, à être plus visible et à structurer vos 
+          workflows sans complexité technique.
         </p>
 
         <div className="flex flex-wrap gap-3">
@@ -45,140 +45,154 @@ export default function ServicesPage() {
         </div>
 
         <p className="text-[11px] text-slate-500 dark:text-slate-400">
-          vous pouvez commencer petit (une automatisation, un mini-site) et évoluer ensuite :
-          tout est pensé pour être modulaire.
+          Vous pouvez commencer petit (un site, une automatisation, un socle marketing) et 
+          faire évoluer ensuite : tout est pensé pour être modulaire.
         </p>
       </section>
 
       {/* BLOCS SERVICES */}
       <section className="space-y-16">
-        {/* AUTOMATISATION */}
+        {/* MARKETING */}
         <div className="space-y-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
-                AUTOMATISATION
+                MARKETING & PRÉSENCE EN LIGNE
               </p>
               <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-                Automatiser votre activité sans code : gagner du temps, réduire les erreurs
+                Structurer votre marketing et votre présence sur la toile.
               </h2>
               <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-                On utilise n8n, Zapier, Make et des scripts légers pour remplacer les tâches
-                répétitives : emails, CRM, relances, factures, leads, administration, etc.
+                Positionnement, messages, SEO, contenus et présence sur les bons canaux :
+                l’objectif est de passer d’actions au hasard à un système d’acquisition 
+                clair, réaliste et aligné avec vos offres.
               </p>
             </div>
 
-            <div className="space-y-1 text-xs text-slate-500 dark:text-slate-400">
+            <div className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
               <p className="font-medium text-slate-700 dark:text-slate-200">
-                Pack Automatisation à partir de{" "}
+                Détail du service sur la page{" "}
                 <span className="font-semibold text-indigo-500 dark:text-indigo-300">
-                  l’offre dédiée
+                  Marketing & présence
                 </span>
+                .
               </p>
-              <Link
-                href="/tarifications"
-                className="inline-flex items-center text-[11px] font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
-              >
-                Voir les tarifs Automatisation →
-              </Link>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  href="/services/marketing"
+                  className="inline-flex items-center rounded-full bg-slate-900 px-4 py-1.5 text-[11px] font-medium text-slate-50 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+                >
+                  Découvrir le service Marketing →
+                </Link>
+                <Link
+                  href="/tarifications"
+                  className="inline-flex items-center text-[11px] font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
+                >
+                  Voir les packs Marketing →
+                </Link>
+              </div>
             </div>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Automation Cards */}
             <ServiceCard
-              label="Prospection automatisée"
-              description="Génère et enrichit des listes de prospects, envoie des messages personnalisés et suit les réponses automatiquement."
+              label="Stratégie & messages"
+              description="Clarifier vos offres, vos cibles, vos messages et votre promesse pour que vos clients comprennent rapidement ce que vous apportez."
               points={[
-                "Scraping + enrichissement SIREN/SIRET",
-                "Messages LinkedIn / email personnalisés",
-                "Suivi automatique des réponses",
+                "Positionnement clair",
+                "Messages orientés bénéfices",
+                "Alignement site / réseaux",
               ]}
             />
-
             <ServiceCard
-              label="Emails & relances automatisés"
-              description="Fini les oublis : factures, devis, RDV, onboarding… tout peut se faire automatiquement."
+              label="SEO & contenus"
+              description="Définir vos thématiques, vos mots-clés et vos contenus prioritaires pour Google et pour vos clients."
               points={[
-                "Emails déclenchés par événement",
-                "Suivi des paiements / factures",
-                "Relances intelligentes",
+                "Plan de contenu SEO",
+                "Pages piliers & blog",
+                "Suivi des résultats clés",
               ]}
             />
-
             <ServiceCard
-              label="CRM & administration automatisés"
-              description="Mise à jour automatique de votre CRM, archivage, export comptable, dossiers clients."
+              label="Présence régulière"
+              description="Un calendrier éditorial simple à tenir, éventuellement dopé par l’IA et l’automatisation pour garder le rythme."
               points={[
-                "Notion / HubSpot / Pipedrive automatisés",
-                "Tri des documents",
-                "Back-office sans saisie manuelle",
+                "Planning réaliste",
+                "Templates prêts à l’emploi",
+                "Possibilité d’automatiser une partie",
               ]}
             />
           </div>
         </div>
 
-        {/* IA */}
+        {/* AUTOMATISATION & IA */}
         <div className="space-y-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
-                INTÉGRATION IA
+                AUTOMATISATION & IA
               </p>
               <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-                IA intégrée à votre métier : plus rapide, plus malin, plus simple
+                Remplacer les tâches répétitives par des workflows intelligents.
               </h2>
               <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-                On intègre l’IA directement dans votre workflow : génération de contenus,
-                analyse de documents, assistants, recommandations, réponses automatiques, etc.
+                n8n, Zapier, Make, IA et intégrations API : nous mettons en place des scénarios 
+                concrets qui vous libèrent des copier-coller, fiabilisent vos données et 
+                sécurisent vos opérations.
               </p>
             </div>
 
-            <div className="space-y-1 text-xs text-slate-500 dark:text-slate-400">
+            <div className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
               <p className="font-medium text-slate-700 dark:text-slate-200">
-                Pack IA pensé pour{" "}
+                Détail du service sur la page{" "}
                 <span className="font-semibold text-indigo-500 dark:text-indigo-300">
-                  TPE, PME et indépendants
+                  Automatisation & IA
                 </span>
+                .
               </p>
-              <Link
-                href="/tarifications"
-                className="inline-flex items-center text-[11px] font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
-              >
-                Voir les tarifs IA →
-              </Link>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  href="/services/automation"
+                  className="inline-flex items-center rounded-full bg-slate-900 px-4 py-1.5 text-[11px] font-medium text-slate-50 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+                >
+                  Découvrir le service Automatisation →
+                </Link>
+                <Link
+                  href="/tarifications"
+                  className="inline-flex items-center text-[11px] font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
+                >
+                  Voir les packs Automatisation →
+                </Link>
+              </div>
             </div>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* IA Cards */}
             <ServiceCard
-              label="Assistant IA métier"
-              description="Une IA spécialisée dans votre activité : réponses, rédaction, calculs, décisions."
+              label="Workflows n8n / Zapier"
+              description="Relier vos outils et automatiser les actions récurrentes : CRM, emails, fichiers, formulaires, back-office."
               points={[
-                "IA pour artisans (devis / réponses clients)",
-                "IA pour consultants (résumés immédiats)",
-                "IA pour e-commerce (support automatisé)",
+                "Scénarios documentés",
+                "Déclencheurs clairs",
+                "Suivi & logs des exécutions",
               ]}
             />
-
             <ServiceCard
-              label="Analyse & synthèse de documents"
-              description="Résumer, classifier, structurer et extraire les infos importantes automatiquement."
+              label="IA intégrée à vos process"
+              description="Utiliser l’IA pour analyser, résumer, classer ou enrichir vos données, sans changer complètement vos outils."
               points={[
-                "Résumé de PDF / comptes-rendus",
-                "Extraction de données",
-                "Tableaux, listes, actions à mener",
+                "Analyse de documents",
+                "Génération de contenu métier",
+                "Aides à la décision",
               ]}
             />
-
             <ServiceCard
-              label="Contenus automatisés"
-              description="Génère des posts, emails, pages ou scripts adaptés à votre votre et votre audience."
+              label="Prospection & administratif"
+              description="Automatiser la génération de leads, le suivi des demandes, la facturation et les relances pour garder le contrôle."
               points={[
-                "Posts LinkedIn calibrés",
-                "Articles pour votre blog",
-                "Emails pros prêts à envoyer",
+                "Enrichissement & suivi des leads",
+                "Préparation de factures / devis",
+                "Relances intelligentes",
               ]}
             />
           </div>
@@ -189,62 +203,68 @@ export default function ServicesPage() {
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
-                SITES WEB
+                CRÉATION DE SITES WEB
               </p>
               <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-                Website modernes, rapides et pensés pour convertir
+                Des sites web modernes, rapides et connectés à votre écosystème.
               </h2>
               <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-                Création de sites web design + SEO + intégration CRM + blog relié à n8n.
-                Le tout avec un suivi pour t’aider à bien rester visible sur le web.
+                Next.js, design premium, SEO, blog, formulaires reliés à votre CRM et prêts 
+                pour l’IA et l’automatisation. Votre site devient un vrai levier de business.
               </p>
             </div>
 
-            <div className="space-y-1 text-xs text-slate-500 dark:text-slate-400">
+            <div className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
               <p className="font-medium text-slate-700 dark:text-slate-200">
-                Packs site web{" "}
+                Détail du service sur la page{" "}
                 <span className="font-semibold text-indigo-500 dark:text-indigo-300">
-                  alignés sur tes objectifs
+                  Création de site web
                 </span>
+                .
               </p>
-              <Link
-                href="/tarifications"
-                className="inline-flex items-center text-[11px] font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
-              >
-                Voir les tarifs Site Web →
-              </Link>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  href="/services/web"
+                  className="inline-flex items-center rounded-full bg-slate-900 px-4 py-1.5 text-[11px] font-medium text-slate-50 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+                >
+                  Découvrir le service Site web →
+                </Link>
+                <Link
+                  href="/tarifications"
+                  className="inline-flex items-center text-[11px] font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
+                >
+                  Voir les packs Site web →
+                </Link>
+              </div>
             </div>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Web cards */}
             <ServiceCard
               label="Site vitrine moderne"
-              description="Design premium inspiré des meilleurs templates SaaS."
+              description="Un site clair, crédible et responsive, inspiré des univers SaaS modernes, avec les pages clés pour présenter vos offres."
               points={[
-                "Pages clés (accueil, services, contact...)",
-                "Blog intégré",
-                "Animations propres & responsive",
+                "Design premium",
+                "Mobile-first",
+                "Structure claire & rassurante",
               ]}
             />
-
             <ServiceCard
-              label="SEO + contenu"
-              description="Structure SEO, conseils rédactionnels, optimisation Core Web Vitals."
+              label="SEO & performances"
+              description="Structure SEO, balises, performances et blog intégré pour préparer votre visibilité Google dès le départ."
               points={[
-                "Mots-clés & structure",
-                "Pages piliers + blog optimisé",
-                "Audit SEO régulier",
+                "SEO technique intégré",
+                "Blog prêt pour le contenu",
+                "Core Web Vitals optimisés",
               ]}
             />
-
             <ServiceCard
-              label="CRM & présence web"
-              description="On t’aide à connecter votre site à votre CRM et à organiser votre suivi client."
+              label="Site connecté & évolutif"
+              description="Formulaires reliés à votre CRM, intégrations n8n possibles, prêt pour accueillir IA, chatbots et automatisations."
               points={[
-                "HubSpot / Notion / Pipedrive",
-                "Formulaires connectés",
-                "Automatisation du suivi",
+                "Connexion CRM / outils internes",
+                "Prêt pour les workflows n8n",
+                "Évolutif sans tout refaire",
               ]}
             />
           </div>
@@ -254,24 +274,24 @@ export default function ServicesPage() {
       {/* CTA FINAL */}
       <section className="space-y-3 rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-50 via-indigo-50 to-sky-50 p-6 shadow-sm shadow-slate-100 dark:border-slate-800 dark:bg-gradient-to-r dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:shadow-[0_18px_45px_rgba(0,0,0,0.6)]">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
-          Prêt à passer d’un process “à la main” à un système qui travaille pour toi ?
+          Vous voulez savoir par où commencer ?
         </h2>
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          On commence par un audit rapide de votre activité, puis on choisit ensemble le pack
-          le plus rentable pour toi. Tu gardes la main, on s’occupe de la partie technique.
+          On commence par un audit de votre situation (site, process, visibilité), puis on 
+          identifie ensemble le service ou le pack le plus pertinent pour vos objectifs.
         </p>
         <div className="mt-3 flex flex-wrap gap-3">
           <Link
-            href="/tarifications"
+            href="/audit-gratuit"
             className="inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-500"
           >
-            Découvrir les packs & tarifs →
+            Demander un audit gratuit →
           </Link>
           <Link
-            href="/audit-gratuit"
+            href="/tarifications"
             className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/70 px-5 py-2.5 text-sm font-medium text-slate-800 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950/80 dark:text-slate-50 dark:hover:border-slate-600 dark:hover:bg-slate-900"
           >
-            Demander un audit gratuit
+            Consulter les packs & tarifs
           </Link>
         </div>
       </section>
@@ -280,9 +300,7 @@ export default function ServicesPage() {
 }
 
 /**
- * Petite carte réutilisable, modernisée :
- * - layout flex-col avec footer
- * - hover border/translate
+ * Carte service réutilisable
  */
 type ServiceCardProps = {
   label: string;
@@ -310,7 +328,7 @@ function ServiceCard({ label, description, points }: ServiceCardProps) {
       </div>
 
       <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
-        <span>Compatible avec les offres Automation / IA / Site web.</span>
+        <span>Compatible avec les packs Marketing, Automatisation & Site web.</span>
         <Link
           href="/tarifications"
           className="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"
