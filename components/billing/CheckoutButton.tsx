@@ -1,62 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
 
+type Billing = "monthly" | "yearly";
 type Plan = "automatisation" | "ia" | "site";
 
-type CheckoutButtonProps = {
+const LINKS: Record<Plan, Record<Billing, string | undefined>> = {
+  automatisation: {
+    monthly: process.env.NEXT_PUBLIC_STRIPE_LINK_AUTO_MONTHLY,
+    yearly: process.env.NEXT_PUBLIC_STRIPE_LINK_AUTO_YEARLY,
+  },
+  ia: {
+    monthly: process.env.NEXT_PUBLIC_STRIPE_LINK_IA_MONTHLY,
+    yearly: process.env.NEXT_PUBLIC_STRIPE_LINK_IA_YEARLY,
+  },
+  site: {
+    monthly: process.env.NEXT_PUBLIC_STRIPE_LINK_SITE_MONTHLY,
+    yearly: process.env.NEXT_PUBLIC_STRIPE_LINK_SITE_YEARLY,
+  },
+};
+
+export function CheckoutButton({
+  plan,
+  billing,
+  label,
+  variant = "primary",
+}: {
   plan: Plan;
-  label?: string;
-  variant?: "primary" | "outline";
-};
+  billing: Billing;
+  label: string;
+  variant?: "primary" | "secondary";
+}) {
+  const href = useMemo(() => LINKS?.[plan]?.[billing], [plan, billing]);
 
-const paymentLinks: Record<Plan, string | undefined> = {
-  automatisation: process.env.NEXT_PUBLIC_STRIPE_LINK_AUTOMATION,
-  ia: process.env.NEXT_PUBLIC_STRIPE_LINK_IA,
-  site: process.env.NEXT_PUBLIC_STRIPE_LINK_SITE,
-};
+  const base =
+    "inline-flex w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-medium transition";
+  const styles =
+    variant === "primary"
+      ? "bg-indigo-600 text-white hover:bg-indigo-500"
+      : "border border-slate-300 text-slate-900 hover:bg-slate-50";
 
-export function CheckoutButton({ plan, label, variant = "primary" }: CheckoutButtonProps) {
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleClick = () => {
-    setError(null);
-    const url = paymentLinks[plan];
-
-    if (!url) {
-      setError("Lien Stripe non configuré pour cette offre.");
-      return;
-    }
-
-    setLoading(true);
-    // Redirection vers Stripe
-    window.location.href = url;
-  };
-
-  const baseClasses =
-    "inline-flex w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-70";
-  const primaryClasses = "bg-indigo-600 text-white hover:bg-indigo-500";
-  const outlineClasses =
-    "border border-slate-300 text-slate-900 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-50 dark:hover:bg-slate-900";
+  if (!href) {
+    return (
+      <button className={`${base} ${styles}`} disabled title="Stripe non configuré">
+        {label}
+      </button>
+    );
+  }
 
   return (
-    <div className="space-y-1">
-      <button
-        type="button"
-        onClick={handleClick}
-        disabled={loading}
-        className={`${baseClasses} ${
-          variant === "primary" ? primaryClasses : outlineClasses
-        }`}
-      >
-        {loading ? "Redirection vers Stripe..." : label ?? "Commander via Stripe"}
-      </button>
-      {error && (
-        <p className="text-[11px] text-rose-600 dark:text-rose-400">
-          {error}
-        </p>
-      )}
-    </div>
+    <a className={`${base} ${styles}`} href={href} target="_blank" rel="noreferrer">
+      {label}
+    </a>
   );
 }

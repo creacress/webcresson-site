@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+<<<<<<< HEAD
 import Link from "next/link";
 
 type Audit = {
@@ -10,6 +11,8 @@ type Audit = {
   quickWins: { title: string; how: string }[];
   nextStep: { cta: string; link: string };
 };
+=======
+>>>>>>> origin/master
 
 function isUrl(v: string) {
   try {
@@ -22,16 +25,25 @@ function isUrl(v: string) {
 
 export default function SeoAuditDemo() {
   const [url, setUrl] = useState("");
+<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
   const [audit, setAudit] = useState<Audit | null>(null);
   const [err, setErr] = useState<string>("");
+=======
+  const [out, setOut] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+>>>>>>> origin/master
 
   const canRun = useMemo(() => isUrl(url.trim()) && !loading, [url, loading]);
 
   async function run() {
     if (!canRun) return;
+<<<<<<< HEAD
     setErr("");
     setAudit(null);
+=======
+    setOut("");
+>>>>>>> origin/master
     setLoading(true);
 
     try {
@@ -41,18 +53,29 @@ export default function SeoAuditDemo() {
         body: JSON.stringify({ type: "seo_audit", url: url.trim() }),
       });
 
+<<<<<<< HEAD
       const data = (await res.json()) as Audit;
       if (typeof data?.score !== "number") throw new Error("Bad payload");
       setAudit(data);
     } catch {
       setErr("Impossible de générer l’audit. Réessaie avec une autre URL.");
+=======
+      const data = await res.json();
+      setOut(data.text ?? "Aucun résultat.");
+    } catch {
+      setOut("Erreur réseau. Réessaie.");
+>>>>>>> origin/master
     } finally {
       setLoading(false);
     }
   }
 
   return (
+<<<<<<< HEAD
     <div className="space-y-4">
+=======
+    <div className="space-y-3">
+>>>>>>> origin/master
       <div className="flex flex-col gap-2 sm:flex-row">
         <input
           value={url}
@@ -65,6 +88,7 @@ export default function SeoAuditDemo() {
           disabled={!canRun}
           className="rounded-xl bg-zinc-900 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50 dark:bg-white dark:text-zinc-900"
         >
+<<<<<<< HEAD
           {loading ? "Analyse…" : "Auditer"}
         </button>
       </div>
@@ -150,3 +174,15 @@ export default function SeoAuditDemo() {
     </div>
   );
 }
+=======
+          Auditer
+        </button>
+      </div>
+
+      <div className="min-h-40 whitespace-pre-wrap rounded-xl border border-zinc-200 bg-zinc-50 p-3 text-sm text-zinc-800 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100">
+        {loading ? "Analyse en cours…" : out || "Résultat ici (diagnostic + quick wins)."}
+      </div>
+    </div>
+  );
+}
+>>>>>>> origin/master
