@@ -33,8 +33,6 @@ body {
 }
 
 /* --- Effet neige moderne (Noël) --- */
-/* --- Effet neige moderne (Noël) --- */
-
 .snow-overlay {
   position: absolute;
   inset: 0;
@@ -67,18 +65,37 @@ body {
   }
 }
 
-/* --- Custom Cursor --- */
-body {
-  cursor: none;
+/* --- Custom Cursor (desktop only) --- */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+
+  a,
+  button {
+    cursor: none;
+  }
+
+  input,
+  textarea,
+  select {
+    cursor: text;
+  }
 }
 
-a,
-button {
-  cursor: none;
-}
+/* Touch/mobile: keep normal cursor behavior (and avoid any custom cursor overlay showing) */
+@media (hover: none), (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
 
-input,
-textarea,
-select {
-  cursor: text;
+  a,
+  button {
+    cursor: auto;
+  }
+
+  /* Hide the custom cursor overlay elements on touch devices */
+  [class*="pointer-events-none fixed z-[9999]"] {
+    display: none !important;
+  }
 }

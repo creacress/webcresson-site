@@ -42,6 +42,12 @@ export default function ServicesPage() {
           >
             Demander un audit gratuit
           </Link>
+          <Link
+            href="/demo-ia"
+            className="inline-flex items-center justify-center rounded-full border border-indigo-500/40 bg-indigo-50/70 px-5 py-2.5 text-sm font-medium text-indigo-700 shadow-sm hover:bg-indigo-100 dark:border-indigo-400/60 dark:bg-slate-950/70 dark:text-indigo-200 dark:hover:bg-slate-900"
+          >
+            Tester la Démo IA →
+          </Link>
         </div>
 
         <p className="text-[11px] text-slate-500 dark:text-slate-400">
