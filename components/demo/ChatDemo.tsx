@@ -86,8 +86,4 @@ export default function ChatDemo() {
       </div>
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
