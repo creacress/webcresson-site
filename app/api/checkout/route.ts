@@ -1,72 +1,48 @@
-// app/api/checkout/route.ts
-import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { NextResponse } from "next/server";
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+type Billing = "monthly" | "yearly";
+type Plan = "automatisation" | "ia" | "site";
 
-if (!stripeSecretKey) {
-  throw new Error("STRIPE_SECRET_KEY manquant dans les variables d'environnement");
-}
-
-const stripe = new Stripe(stripeSecretKey, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-11-17.clover",
 });
 
-const PLAN_TO_PRICE: Record<string, string | undefined> = {
-  automatisation: process.env.STRIPE_PRICE_AUTOMATION,
-  ia: process.env.STRIPE_PRICE_IA,
-  site: process.env.STRIPE_PRICE_SITE,
+const PRICE: Record<Plan, Record<Billing, string>> = {
+  automatisation: {
+    monthly: process.env.STRIPE_PRICE_AUTO_MONTHLY!,
+    yearly: process.env.STRIPE_PRICE_AUTO_YEARLY!,
+  },
+  ia: {
+    monthly: process.env.STRIPE_PRICE_IA_MONTHLY!,
+    yearly: process.env.STRIPE_PRICE_IA_YEARLY!,
+  },
+  site: {
+    monthly: process.env.STRIPE_PRICE_SITE_MONTHLY!,
+    yearly: process.env.STRIPE_PRICE_SITE_YEARLY!,
+  },
 };
 
-export const runtime = "nodejs";
+export async function POST(req: Request) {
+  const { plan, billing } = (await req.json()) as { plan: Plan; billing: Billing };
 
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const { plan, customerEmail } = body as {
-      plan?: "automatisation" | "ia" | "site";
-      customerEmail?: string;
-    };
-
-    if (!plan || !PLAN_TO_PRICE[plan]) {
-      return NextResponse.json(
-        { ok: false, error: "Plan inconnu ou non configuré." },
-        { status: 400 },
-      );
-    }
-
-    const priceId = PLAN_TO_PRICE[plan]!;
-
-    const successUrl =
-      process.env.STRIPE_SUCCESS_URL ??
-      `${req.nextUrl.origin}/tarifications?status=success`;
-    const cancelUrl =
-      process.env.STRIPE_CANCEL_URL ??
-      `${req.nextUrl.origin}/tarifications?status=cancel`;
-
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      success_url: `${successUrl}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl,
-      customer_email: customerEmail,
-      metadata: {
-        plan,
-      },
-    });
-
-    return NextResponse.json({ ok: true, url: session.url });
-  } catch (error) {
-    console.error("[STRIPE_CHECKOUT_ERROR]", error);
+  const priceId = PRICE?.[plan]?.[billing];
+  if (!priceId) {
     return NextResponse.json(
-      { ok: false, error: "Erreur lors de la création de la session Stripe." },
-      { status: 500 },
+      { error: "Lien de paiement Stripe non configuré (priceId manquant)." },
+      { status: 400 }
     );
   }
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "subscription",
+    line_items: [{ price: priceId, quantity: 1 }],
+    success_url: `${baseUrl}/merci?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${baseUrl}/tarifications`,
+    allow_promotion_codes: true,
+  });
+
+  return NextResponse.json({ url: session.url });
 }
