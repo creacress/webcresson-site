@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -100,6 +101,7 @@ export default function RootLayout({
 
         {/* Vercel Web Analytics : traque toutes les pages */}
         <Analytics />
+        <SpeedInsights/>
       </body>
     </html>
   );
