@@ -376,16 +376,16 @@ export default function HomePage() {
               description="Pour remplacer les tâches répétitives (prospection, emails, CRM, admin) par des workflows no-code qui tournent seuls."
             >
               <p className="mt-3 text-xs text-slate-500 line-through dark:text-slate-500">
-                À partir de 1 285 € HT
+                6840 € HT / an
               </p>
               <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
-                À partir de 990 € HT
+                4100 € HT / an
                 <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
-                  Offre Hiver
+                  -30% Offre de saison
                 </span>
               </p>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                Mise en place une fois. Maintenance en option dès 120 € HT / mois.
+                Mise en place à partir de 1190 € HT (one-shot).
               </p>
             </Card>
 
@@ -396,16 +396,16 @@ export default function HomePage() {
               description="Une IA qui connaît votre activité : clients, docs, process — sans usine à gaz."
             >
               <p className="mt-3 text-xs text-slate-500 line-through dark:text-slate-500">
-                À partir de 897 € HT
+                4104 € HT / an
               </p>
               <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
-                À partir de 690 € HT
+                2448 € HT / an
                 <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
-                  Offre Hiver
+                  -30% Offre de saison
                 </span>
               </p>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                Pack une fois. Maintenance IA en option dès 150 € HT / mois.
+                Mise en place à partir de 790 € HT (one-shot).
               </p>
             </Card>
 
@@ -416,16 +416,16 @@ export default function HomePage() {
               description="Un site moderne, rapide, relié à votre CRM, avec une base SEO propre."
             >
               <p className="mt-3 text-xs text-slate-500 line-through dark:text-slate-500">
-                À partir de 767 € HT
+                2100 € HT / an
               </p>
               <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
-                À partir de 590 € HT
+                1285 € HT / an
                 <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
-                  Offre Hiver
+                  -30% Offre de saison
                 </span>
               </p>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                Projet au forfait. Maintenance site & SEO dès 180 € HT / mois.
+                Mise en place à partir de 413 € HT (one-shot).
               </p>
             </Card>
           </div>
