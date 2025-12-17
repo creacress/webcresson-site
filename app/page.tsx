@@ -356,7 +356,7 @@ export default function HomePage() {
                 soit couvert par le temps gagné ou le chiffre d’affaires généré.
                 Actuellement :{" "}
                 <span className="font-semibold text-red-600 dark:text-red-400">
-                  Offre Noël ≈ -30 % sur les packs principaux.
+                  Offre Hiver : remise sur les packs principaux.
                 </span>
               </p>
             </div>
@@ -376,12 +376,12 @@ export default function HomePage() {
               description="Pour remplacer les tâches répétitives (prospection, emails, CRM, admin) par des workflows no-code qui tournent seuls."
             >
               <p className="mt-3 text-xs text-slate-500 line-through dark:text-slate-500">
-                À partir de 1 287 € HT
+                À partir de 1 285 € HT
               </p>
               <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
                 À partir de 990 € HT
                 <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
-                  Offre Noël
+                  Offre Hiver
                 </span>
               </p>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -401,7 +401,7 @@ export default function HomePage() {
               <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
                 À partir de 690 € HT
                 <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
-                  Offre Noël
+                  Offre Hiver
                 </span>
               </p>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -421,7 +421,7 @@ export default function HomePage() {
               <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-50">
                 À partir de 590 € HT
                 <span className="ml-2 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600 dark:bg-red-500/15 dark:text-red-300">
-                  Offre Noël
+                  Offre Hiver
                 </span>
               </p>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
