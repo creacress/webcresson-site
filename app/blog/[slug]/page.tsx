@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { fetchBlogPostBySlug } from "@/lib/blog";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 };
 
 function formatArticleHtml(raw: string): string {
@@ -70,7 +70,7 @@ function formatArticleHtml(raw: string): string {
 
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = params;
   const post = await fetchBlogPostBySlug(slug);
 
   if (!post) {
@@ -105,13 +105,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
+  const { slug } = params;
   const post = await fetchBlogPostBySlug(slug);
 
   if (!post) notFound();
 
-  const baseHtml =
-    post && typeof post.contentHtml === "string" ? post.contentHtml : "";
+  const publishedAtStr = post.publishedAt ?? post.createdAt ?? post.updatedAt ?? "";
+  const publishedAt = publishedAtStr ? new Date(publishedAtStr) : null;
+
+  const updatedAtStr = post.updatedAt ?? "";
+  const updatedAt = updatedAtStr ? new Date(updatedAtStr) : null;
+
+  const baseHtml = typeof post.contentHtml === "string" ? post.contentHtml : "";
   const html = formatArticleHtml(baseHtml);
 
   return (
@@ -128,30 +133,31 @@ export default async function BlogPostPage({ params }: Props) {
         </h1>
 
         <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400">
-          <span>
-            Publié le{" "}
-            {new Date(post.publishedAt).toLocaleDateString("fr-FR", {
-              year: "numeric",
-              month: "long",
-              day: "2-digit",
-            })}
-          </span>
+          {publishedAt ? (
+            <span>
+              Publié le{" "}
+              {publishedAt.toLocaleDateString("fr-FR", {
+                year: "numeric",
+                month: "long",
+                day: "2-digit",
+              })}
+            </span>
+          ) : null}
 
-          {post.updatedAt && (
+          {updatedAt ? (
             <span className="text-[11px] text-slate-500">
               • Mis à jour le{" "}
-              {new Date(post.updatedAt).toLocaleDateString("fr-FR", {
+              {updatedAt.toLocaleDateString("fr-FR", {
                 year: "numeric",
                 month: "short",
                 day: "2-digit",
               })}
-              )
             </span>
-          )}
+          ) : null}
 
           {post.tags && post.tags.length > 0 && (
             <div className="flex flex-wrap justify-center gap-2">
-              {post.tags.map((tag) => (
+              {post.tags.map((tag: string) => (
                 <span
                   key={tag}
                   className="rounded-full bg-slate-900/60 px-2.5 py-0.5 text-[11px] font-medium text-slate-200 ring-1 ring-slate-700/80"

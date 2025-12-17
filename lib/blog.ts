@@ -1,87 +1,46 @@
 // lib/blog.ts
-export type BlogPostSummary = {
-  slug: string | null;
-  title: string | null;
-  excerpt: string | null;
-  publishedAt: string | null;
-  tags?: string[];
-};
-
-export type BlogPostDetail = {
+export type BlogPost = {
   slug: string;
   title: string;
-  excerpt: string | null;
-  contentHtml: string;
-  publishedAt: string;
-  updatedAt?: string | null;
-  seoTitle?: string | null;
-  seoDescription?: string | null;
-  coverImage?: string | null;
+
+  excerpt?: string;
+
+  // contenu
+  contentMarkdown?: string;
+  contentHtml?: string; // ✅ ton [slug] l'utilise
+
+  // SEO
+  seoTitle?: string;       // ✅
+  seoDescription?: string; // ✅
+
+  // dates
+  publishedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+
+  // média / meta
+  coverImageUrl?: string;
   tags?: string[];
 };
 
-const LIST_URL =
-  process.env.BLOG_API_LIST_URL ?? process.env.NEXT_PUBLIC_BLOG_API_LIST_URL;
+// --- API (via /api/blog/...) ---
 
-const DETAIL_URL =
-  process.env.BLOG_API_DETAIL_URL ?? process.env.NEXT_PUBLIC_BLOG_API_DETAIL_URL;
-
-const fetchOpts =
-  process.env.NODE_ENV === "development"
-    ? ({ cache: "no-store" } as const)
-    : ({ next: { revalidate: 300 } } as const);
-
-function unwrapRoot(json: any) {
-  return Array.isArray(json) ? json[0] : json;
-}
-
-export async function fetchBlogPosts(): Promise<BlogPostSummary[]> {
-  if (!LIST_URL) return [];
-
-  const res = await fetch(LIST_URL, fetchOpts);
+export async function fetchBlogPosts(): Promise<BlogPost[]> {
+  const res = await fetch("/api/blog/posts", { next: { revalidate: 60 } });
   if (!res.ok) return [];
-
-  const data = unwrapRoot(await res.json());
-  const posts = (data?.posts ?? []) as BlogPostSummary[];
-
-  return posts.filter((p) => p?.slug && p?.title && p?.publishedAt);
+  const data = await res.json();
+  return Array.isArray(data?.posts) ? (data.posts as BlogPost[]) : [];
 }
 
-export async function fetchBlogPostBySlug(
-  slug: string,
-): Promise<BlogPostDetail | null> {
-  if (!DETAIL_URL) return null;
-
-  const url = new URL(DETAIL_URL);
-  url.searchParams.set("slug", slug);
-
-  const res = await fetch(url.toString(), fetchOpts);
+// ✅ alias demandé par ton page.tsx slug
+export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  const res = await fetch(`/api/blog/post?slug=${encodeURIComponent(slug)}`, {
+    next: { revalidate: 60 },
+  });
   if (!res.ok) return null;
-
-  const data = unwrapRoot(await res.json());
-  if (!data?.found || !data.post) return null;
-
-  const p = data.post as any;
-
-  const contentHtml =
-    typeof p.contentHtml === "string"
-      ? p.contentHtml
-      : typeof p.content_html === "string"
-        ? p.content_html
-        : typeof p.content === "string"
-          ? p.content
-          : "";
-
-  return {
-    slug: p.slug,
-    title: p.title,
-    excerpt: p.excerpt ?? null,
-    contentHtml,
-    publishedAt: p.publishedAt || p.published_at || new Date().toISOString(),
-    updatedAt: p.updatedAt || p.updated_at || null,
-    seoTitle: p.seoTitle ?? p.seo_title ?? null,
-    seoDescription: p.seoDescription ?? p.seo_description ?? null,
-    coverImage: p.coverImage ?? p.cover_image ?? null,
-    tags: p.tags ?? [],
-  };
+  const data = await res.json();
+  return data?.found ? (data.post as BlogPost) : null;
 }
+
+// (optionnel) alias plus court si tu veux
+export const fetchBlogPost = fetchBlogPostBySlug;
