@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Services | WebCressonTech",
+  title: "WCT Platform | WebCressonTech",
   description:
-    "Automatisation n8n, intégration IA, création de sites web modernes et marketing digital pour TPE, PME et indépendants.",
+    "WCT Platform : un système d’information simple pour créer, déployer et piloter des IA, chatbots et automatisations (RPA) pour TPE/PME.",
 };
 
 export default function ServicesPage() {
@@ -13,20 +13,20 @@ export default function ServicesPage() {
       <section className="space-y-6">
         <p className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:border-indigo-900/60 dark:bg-indigo-950/40 dark:text-indigo-200">
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-          SERVICES
+          WCT PLATFORM
         </p>
 
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
-          Des services pensés pour
+          WCT Platform :
           <span className="block bg-gradient-to-r from-indigo-500 via-sky-500 to-cyan-400 bg-clip-text text-transparent">
-            automatiser, structurer et rendre visible votre activité.
+            votre SI pour créer des IA, chatbots et automatisations.
           </span>
         </h1>
 
         <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300 sm:text-base">
-          Automatisation no-code, IA appliquée, sites web Next.js et marketing digital : 
-          WebCressonTech vous aide à gagner du temps, à être plus visible et à structurer vos 
-          workflows sans complexité technique.
+          Une plateforme modulaire (modules WCT) qui accompagne les entreprises pour :
+          créer des assistants IA (RAG), déployer des chatbots, automatiser (RPA) et connecter
+          leurs outils — avec une interface moderne et des intégrations fiables.
         </p>
 
         <div className="flex flex-wrap gap-3">
@@ -51,27 +51,26 @@ export default function ServicesPage() {
         </div>
 
         <p className="text-[11px] text-slate-500 dark:text-slate-400">
-          Vous pouvez commencer petit (un site, une automatisation, un socle marketing) et 
-          faire évoluer ensuite : tout est pensé pour être modulaire.
+          Vous démarrez avec 1 module (chatbot, automatisation ou site) puis vous ajoutez les
+          briques WCT au fil de votre croissance : tout est conçu pour être modulaire.
         </p>
       </section>
 
-      {/* BLOCS SERVICES */}
+      {/* MODULES WCT */}
       <section className="space-y-16">
         {/* MARKETING */}
         <div className="space-y-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
-                MARKETING & PRÉSENCE EN LIGNE
+                WCT GROWTH
               </p>
               <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-                Structurer votre marketing et votre présence sur la toile.
+                Accélérer votre acquisition avec un système marketing clair.
               </h2>
               <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-                Positionnement, messages, SEO, contenus et présence sur les bons canaux :
-                l’objectif est de passer d’actions au hasard à un système d’acquisition 
-                clair, réaliste et aligné avec vos offres.
+                WCT Growth structure votre acquisition : positionnement, messages, SEO et contenu.
+                Objectif : arrêter le "bricolage" et piloter une machine simple, mesurable et durable.
               </p>
             </div>
 
@@ -79,7 +78,7 @@ export default function ServicesPage() {
               <p className="font-medium text-slate-700 dark:text-slate-200">
                 Détail du service sur la page{" "}
                 <span className="font-semibold text-indigo-500 dark:text-indigo-300">
-                  Marketing & présence
+                  WCT Growth
                 </span>
                 .
               </p>
@@ -136,15 +135,14 @@ export default function ServicesPage() {
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
-                AUTOMATISATION & IA
+                WCT AUTOMATE + WCT AI
               </p>
               <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-                Remplacer les tâches répétitives par des workflows intelligents.
+                Automatiser et intégrer l’IA dans vos process (sans chaos).
               </h2>
               <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-                n8n, Zapier, Make, IA et intégrations API : nous mettons en place des scénarios 
-                concrets qui vous libèrent des copier-coller, fiabilisent vos données et 
-                sécurisent vos opérations.
+                WCT Automate orchestre vos workflows (RPA) et connecte vos outils.
+                WCT AI ajoute la couche intelligente : analyse, résumé, classification, assistants métiers.
               </p>
             </div>
 
@@ -152,7 +150,7 @@ export default function ServicesPage() {
               <p className="font-medium text-slate-700 dark:text-slate-200">
                 Détail du service sur la page{" "}
                 <span className="font-semibold text-indigo-500 dark:text-indigo-300">
-                  Automatisation & IA
+                  WCT Automate + WCT AI
                 </span>
                 .
               </p>
@@ -209,14 +207,14 @@ export default function ServicesPage() {
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
-                CRÉATION DE SITES WEB
+                WCT STUDIO
               </p>
               <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-                Des sites web modernes, rapides et connectés à votre écosystème.
+                Une interface moderne pour piloter votre SI (web, IA, automatisations).
               </h2>
               <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-                Next.js, design premium, SEO, blog, formulaires reliés à votre CRM et prêts 
-                pour l’IA et l’automatisation. Votre site devient un vrai levier de business.
+                WCT Studio regroupe : site web, formulaires, dashboard et widgets (chat) — connectés à vos données.
+                Votre front devient le point d’entrée du SI : clair, rapide, SEO-ready et évolutif.
               </p>
             </div>
 
@@ -224,7 +222,7 @@ export default function ServicesPage() {
               <p className="font-medium text-slate-700 dark:text-slate-200">
                 Détail du service sur la page{" "}
                 <span className="font-semibold text-indigo-500 dark:text-indigo-300">
-                  Création de site web
+                  WCT Studio
                 </span>
                 .
               </p>
@@ -283,7 +281,7 @@ export default function ServicesPage() {
           Vous voulez savoir par où commencer ?
         </h2>
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          On commence par un audit de votre situation (site, process, visibilité), puis on 
+          On commence par un audit de votre situation (site, process, visibilité), puis on
           identifie ensemble le service ou le pack le plus pertinent pour vos objectifs.
         </p>
         <div className="mt-3 flex flex-wrap gap-3">
@@ -320,7 +318,7 @@ function ServiceCard({ label, description, points }: ServiceCardProps) {
       <div>
         <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-300">
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 group-hover:bg-indigo-400" />
-          Service inclus dans les packs
+          Module WCT
         </div>
         <h3 className="mt-3 text-lg font-semibold text-slate-900 dark:text-white">
           {label}
@@ -334,7 +332,7 @@ function ServiceCard({ label, description, points }: ServiceCardProps) {
       </div>
 
       <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
-        <span>Compatible avec les packs Marketing, Automatisation & Site web.</span>
+        <span>Compatible avec WCT Growth, WCT Automate, WCT AI et WCT Studio.</span>
         <Link
           href="/tarifications"
           className="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300"

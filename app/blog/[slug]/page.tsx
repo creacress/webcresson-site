@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { fetchBlogPostBySlug } from "@/lib/blog";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 function formatArticleHtml(raw: string): string {
@@ -70,7 +70,7 @@ function formatArticleHtml(raw: string): string {
 
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const post = await fetchBlogPostBySlug(slug);
 
   if (!post) {
@@ -105,7 +105,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = params;
+  const { slug } = await params;
   const post = await fetchBlogPostBySlug(slug);
 
   if (!post) notFound();

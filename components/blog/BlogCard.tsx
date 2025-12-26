@@ -6,7 +6,7 @@ type BlogCardProps = {
   post: BlogPost;
 };
 
-function formatDateFr(dateStr?: string): string {
+function formatDateFr(dateStr?: string | null): string {
   if (!dateStr) return "";
   const d = new Date(dateStr);
   if (Number.isNaN(d.getTime())) return "";
