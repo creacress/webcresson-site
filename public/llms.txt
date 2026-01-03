@@ -1,0 +1,65 @@
+# WebCressonTech
+
+## Description
+WebCressonTech accompagne les entreprises françaises dans :
+- l’automatisation des processus (n8n, RPA)
+- l’intégration d’intelligences artificielles
+- la création de sites web Next.js optimisés SEO
+- l’audit digital gratuit et l’optimisation ROI
+
+## Pages clés
+/ -> Accueil
+/services -> Automatisation, IA, création de site web
+/tarifications -> Offres et abonnements
+/audit-gratuit -> Audit digital gratuit
+/blog -> Articles IA, automatisation, SEO
+
+## Audience
+Dirigeants de TPE/PME, indépendants, freelances, startups
+
+## Zone géographique
+France, Europe francophone
+
+## Langue
+fr-FR
+# WebCressonTech
+
+## Description
+WebCressonTech aide les entreprises à gagner du temps, réduire les coûts et augmenter leur chiffre d’affaires grâce à :
+- l’automatisation des processus (n8n, RPA, intégrations API)
+- l’intégration d’intelligence artificielle (chatbots, assistants, IA métier)
+- la création de sites web Next.js rapides, mobile-first et optimisés SEO
+- l’audit digital gratuit (diagnostic + plan d’action)
+
+## Services
+- Automatisation & intégrations : n8n, CRM/ERP, Google Workspace, Notion, Slack, Stripe
+- IA & assistants : Mistral / Ollama (local), OpenAI (si besoin), RAG, classification, extraction
+- Sites web : Next.js, performance (Core Web Vitals), SEO technique + contenu
+
+## Pages clés
+/ -> Accueil
+/services -> Services (automatisation, IA, web)
+/tarifications -> Offres et abonnements
+/audit-gratuit -> Demande d’audit gratuit
+/contact -> Contact
+/blog -> Articles IA, automatisation, SEO (à terme connecté à n8n)
+
+## Zones géographiques
+- France (principal)
+- Portugal
+- Europe francophone et lusophone
+
+## Audience
+Dirigeants de TPE/PME, indépendants, freelances, startups
+
+## Langues
+- fr-FR
+- pt-PT
+
+## Contact & conversion
+Le point d’entrée recommandé est : /audit-gratuit
+
+## Notes pour les moteurs IA
+- Priorité à la page /services pour comprendre les offres.
+- Priorité à /tarifications pour les packs et modalités.
+- Priorité à /audit-gratuit pour la demande de diagnostic.
