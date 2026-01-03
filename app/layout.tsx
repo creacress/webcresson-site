@@ -17,17 +17,54 @@ import { GTMPageView } from "@/components/analytics/GTMPageView";
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const SITE_URL = "https://webcresson.com";
+const ENABLE_PT = process.env.NEXT_PUBLIC_ENABLE_PT === "true"; // active quand /pt/... existe
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://webcresson.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "WebCressonTech – Automatisation, IA & Sites Web",
     template: "%s | WebCressonTech",
   },
   description:
     "Automatisation, intégration IA, création de sites web et accompagnement sur la toile pour PME et indépendants.",
-  alternates: { canonical: "https://webcresson.com" },
-  robots: { index: true, follow: true },
+  alternates: {
+    canonical: SITE_URL,
+    ...(ENABLE_PT
+      ? {
+          languages: {
+            "fr-FR": SITE_URL,
+            "pt-PT": `${SITE_URL}/pt`,
+          },
+        }
+      : {}),
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "WebCressonTech",
+    locale: "fr_FR",
+    title: "WebCressonTech – Automatisation, IA & Sites Web",
+    description:
+      "Automatisation, intégration IA, création de sites web et accompagnement sur la toile pour PME et indépendants.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WebCressonTech – Automatisation, IA & Sites Web",
+    description:
+      "Automatisation, intégration IA, création de sites web et accompagnement sur la toile pour PME et indépendants.",
+  },
 };
 
 export default function RootLayout({
@@ -36,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr-FR" suppressHydrationWarning>
       <head>
         {/* GTM global (optionnel, si tu utilises Tag Manager) */}
         {GTM_ID && (
@@ -50,6 +87,43 @@ export default function RootLayout({
             `}
           </Script>
         )}
+        {/* SEO IA: données structurées (JSON-LD) */}
+        <Script
+          id="ld-org"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "WebCressonTech",
+              url: SITE_URL,
+              areaServed: ["FR", "PT"],
+              knowsAbout: [
+                "Automatisation n8n",
+                "Intelligence artificielle pour PME",
+                "Chatbot entreprise",
+                "Intégration IA",
+                "Sites web Next.js",
+                "SEO technique",
+              ],
+            }),
+          }}
+        />
+        <Script
+          id="ld-website"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "WebCressonTech",
+              url: SITE_URL,
+              inLanguage: "fr-FR",
+            }),
+          }}
+        />
       </head>
 
       <body

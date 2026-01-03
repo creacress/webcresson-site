@@ -1,14 +1,171 @@
-import Link from "next/link";
 
-export const metadata = {
-  title: "WCT Platform | WebCressonTech",
+import Link from "next/link";
+import Script from "next/script";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Services IA & Automatisation pour PME | WebCressonTech",
   description:
-    "WCT Platform : un système d’information simple pour créer, déployer et piloter des IA, chatbots et automatisations (RPA) pour TPE/PME.",
+    "Automatisation n8n, intégration IA (chatbots, assistants), création de site web Next.js SEO. Audit gratuit et plan d’action pour TPE/PME.",
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    title: "Services IA & Automatisation pour PME | WebCressonTech",
+    description:
+      "Automatisation n8n, intégration IA (chatbots, assistants), création de site web Next.js SEO. Audit gratuit et plan d’action pour TPE/PME.",
+    url: "/services",
+    type: "website",
+  },
 };
 
 export default function ServicesPage() {
+  const SITE_URL = "https://webcresson.com";
   return (
     <div className="space-y-20 lg:space-y-24">
+      {/* SEO IA: Données structurées (JSON-LD) */}
+      <Script
+        id="ld-breadcrumbs-services"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Accueil",
+                item: SITE_URL,
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Services",
+                item: `${SITE_URL}/services`,
+              },
+            ],
+          }),
+        }}
+      />
+
+      <Script
+        id="ld-service-catalog"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Catalogue de services WebCressonTech",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                item: {
+                  "@type": "Service",
+                  name: "Automatisation & intégrations (n8n)",
+                  areaServed: ["FR"],
+                  provider: { "@type": "Organization", name: "WebCressonTech", url: SITE_URL },
+                  url: `${SITE_URL}/automatisation-entreprise`,
+                  description:
+                    "Automatisation de tâches, intégrations API, orchestration de workflows n8n, logs et suivi.",
+                },
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                item: {
+                  "@type": "Service",
+                  name: "Intégration IA (chatbots, assistants)",
+                  areaServed: ["FR"],
+                  provider: { "@type": "Organization", name: "WebCressonTech", url: SITE_URL },
+                  url: `${SITE_URL}/integration-ia-entreprise`,
+                  description:
+                    "Chatbots, assistants IA, RAG, analyse et extraction de documents, classification.",
+                },
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                item: {
+                  "@type": "Service",
+                  name: "Création de site web Next.js optimisé SEO",
+                  areaServed: ["FR"],
+                  provider: { "@type": "Organization", name: "WebCressonTech", url: SITE_URL },
+                  url: `${SITE_URL}/creation-site-web`,
+                  description:
+                    "Sites rapides, mobile-first, Core Web Vitals, pages offres et blog prêts pour le SEO.",
+                },
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                item: {
+                  "@type": "Service",
+                  name: "Marketing & acquisition (SEO + contenu)",
+                  areaServed: ["FR"],
+                  provider: { "@type": "Organization", name: "WebCressonTech", url: SITE_URL },
+                  url: `${SITE_URL}/services/marketing`,
+                  description:
+                    "Positionnement, messages, SEO, stratégie de contenu et calendrier éditorial.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
+      <Script
+        id="ld-faq-services"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Pourquoi automatiser une PME avec n8n ?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "Pour gagner du temps sur les tâches répétitives, réduire les erreurs et connecter vos outils (CRM, email, facturation). Les workflows sont traçables et maintenables.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "À quoi sert une intégration IA (chatbot / assistant) ?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "À automatiser la compréhension (résumé, extraction, classification) et à offrir un support intelligent (FAQ, RAG, réponses contextualisées) sans changer vos outils.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "En combien de temps voit-on un ROI ?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "Souvent en quelques semaines : un premier workflow ou un chatbot peut déjà économiser plusieurs heures par semaine. On démarre par un audit pour prioriser les gains rapides.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Proposez-vous un audit gratuit ?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "Oui. L’audit gratuit permet d’identifier les tâches à automatiser, les opportunités IA et un plan d’action concret.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
       {/* HERO */}
       <section className="space-y-6">
         <p className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:border-indigo-900/60 dark:bg-indigo-950/40 dark:text-indigo-200">
@@ -17,16 +174,18 @@ export default function ServicesPage() {
         </p>
 
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
-          WCT Platform :
+          Services IA & Automatisation pour PME
           <span className="block bg-gradient-to-r from-indigo-500 via-sky-500 to-cyan-400 bg-clip-text text-transparent">
-            votre SI pour créer des IA, chatbots et automatisations.
+            n8n, chatbots, assistants IA et sites Next.js optimisés SEO.
           </span>
         </h1>
 
         <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300 sm:text-base">
-          Une plateforme modulaire (modules WCT) qui accompagne les entreprises pour :
-          créer des assistants IA (RAG), déployer des chatbots, automatiser (RPA) et connecter
-          leurs outils — avec une interface moderne et des intégrations fiables.
+          On aide les TPE/PME à gagner du temps et à augmenter leur efficacité grâce à
+          <strong className="font-semibold text-slate-900 dark:text-slate-50"> l’automatisation (n8n)</strong>,
+          <strong className="font-semibold text-slate-900 dark:text-slate-50"> l’intégration IA</strong> (chatbots, assistants, RAG)
+          et des <strong className="font-semibold text-slate-900 dark:text-slate-50">sites Next.js</strong> rapides, mobile-first et SEO.
+          On démarre par un audit pour prioriser les actions à plus fort ROI.
         </p>
 
         <div className="flex flex-wrap gap-3">
@@ -43,11 +202,20 @@ export default function ServicesPage() {
             Demander un audit gratuit
           </Link>
           <Link
-            href="/demo-ia"
+            href="/chatbot-entreprise"
             className="inline-flex items-center justify-center rounded-full border border-indigo-500/40 bg-indigo-50/70 px-5 py-2.5 text-sm font-medium text-indigo-700 shadow-sm hover:bg-indigo-100 dark:border-indigo-400/60 dark:bg-slate-950/70 dark:text-indigo-200 dark:hover:bg-slate-900"
           >
-            Tester la Démo IA →
+            Voir la page Chatbot →
           </Link>
+        </div>
+
+        <div className="grid gap-3 rounded-2xl border border-slate-200 bg-white/70 p-4 text-sm text-slate-700 shadow-sm shadow-slate-100 dark:border-slate-800 dark:bg-slate-950/70 dark:text-slate-200">
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <span className="font-medium">Gains rapides :</span>
+            <span>• 1er workflow n8n en 7–14 jours</span>
+            <span>• chatbot FAQ / RAG en 2–4 semaines</span>
+            <span>• page service SEO prête à convertir</span>
+          </div>
         </div>
 
         <p className="text-[11px] text-slate-500 dark:text-slate-400">
@@ -156,10 +324,16 @@ export default function ServicesPage() {
               </p>
               <div className="flex flex-wrap gap-2">
                 <Link
-                  href="/services/automatisation"
+                  href="/automatisation-entreprise"
                   className="inline-flex items-center rounded-full bg-slate-900 px-4 py-1.5 text-[11px] font-medium text-slate-50 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
                 >
                   Découvrir le service Automatisation →
+                </Link>
+                <Link
+                  href="/integration-ia-entreprise"
+                  className="inline-flex items-center rounded-full bg-slate-900 px-4 py-1.5 text-[11px] font-medium text-slate-50 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+                >
+                  Découvrir le service IA →
                 </Link>
                 <Link
                   href="/tarifications"
@@ -228,7 +402,7 @@ export default function ServicesPage() {
               </p>
               <div className="flex flex-wrap gap-2">
                 <Link
-                  href="/services/web"
+                  href="/creation-site-web"
                   className="inline-flex items-center rounded-full bg-slate-900 px-4 py-1.5 text-[11px] font-medium text-slate-50 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
                 >
                   Découvrir le service Site web →
@@ -272,6 +446,55 @@ export default function ServicesPage() {
               ]}
             />
           </div>
+        </div>
+      </section>
+
+      {/* FAQ (SEO + IA) */}
+      <section className="space-y-6">
+        <div className="space-y-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
+            FAQ
+          </p>
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
+            Questions fréquentes sur l’automatisation et l’IA
+          </h2>
+          <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
+            Réponses directes — pensées pour vos prospects et pour les moteurs IA.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <FaqItem
+            q="Pourquoi automatiser une PME avec n8n ?"
+            a="Pour gagner du temps sur les tâches répétitives, réduire les erreurs et connecter vos outils (CRM, email, facturation). Les workflows sont documentés, traçables et maintenables."
+          />
+          <FaqItem
+            q="À quoi sert une intégration IA (chatbot / assistant) ?"
+            a="À automatiser la compréhension (résumé, extraction, classification) et offrir un support intelligent (FAQ, RAG) avec des réponses contextualisées."
+          />
+          <FaqItem
+            q="Quel est le délai pour un premier résultat ?"
+            a="En général : 1er workflow n8n en 7–14 jours, puis itérations. Un chatbot FAQ/RAG peut sortir en 2–4 semaines selon les données."
+          />
+          <FaqItem
+            q="Proposez-vous un audit gratuit ?"
+            a="Oui. On identifie ensemble les priorités, les gains rapides et un plan d’action concret avant de lancer la mise en place."
+          />
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/audit-gratuit"
+            className="inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-500"
+          >
+            Demander un audit gratuit →
+          </Link>
+          <Link
+            href="/tarifications"
+            className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/70 px-5 py-2.5 text-sm font-medium text-slate-800 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950/80 dark:text-slate-50 dark:hover:border-slate-600 dark:hover:bg-slate-900"
+          >
+            Voir les packs & tarifs
+          </Link>
         </div>
       </section>
 
@@ -340,6 +563,15 @@ function ServiceCard({ label, description, points }: ServiceCardProps) {
           Voir les tarifs →
         </Link>
       </div>
+    </div>
+  );
+}
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-sm shadow-slate-100 dark:border-slate-800 dark:bg-slate-950/80 dark:shadow-[0_18px_45px_rgba(0,0,0,0.6)]">
+      <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">{q}</h3>
+      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{a}</p>
     </div>
   );
 }
