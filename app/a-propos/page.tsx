@@ -1,15 +1,68 @@
 // app/a-propos/page.tsx
 import Link from "next/link";
+import Script from "next/script";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "À propos | WebCressonTech",
   description:
-    "En savoir plus sur WebCressonTech : studio d’automatisation, d’IA et de création de Website pour TPE, PME et indépendants.",
+    "WebCressonTech accompagne les TPE/PME avec l’automatisation (n8n), l’intégration IA (assistants, RAG) et la création de sites Next.js optimisés SEO.",
+  alternates: {
+    canonical: "/a-propos",
+  },
+  openGraph: {
+    title: "À propos | WebCressonTech",
+    description:
+      "WebCressonTech accompagne les TPE/PME avec l’automatisation (n8n), l’intégration IA (assistants, RAG) et la création de sites Next.js optimisés SEO.",
+    url: "/a-propos",
+    type: "website",
+  },
 };
 
 export default function AProposPage() {
   return (
     <div className="space-y-20 lg:space-y-24">
+      {/* SEO IA / EEAT : données structurées (JSON-LD) */}
+      <Script
+        id="ld-breadcrumbs-a-propos"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: "https://webcresson.com" },
+              { "@type": "ListItem", position: 2, name: "À propos", item: "https://webcresson.com/a-propos" },
+            ],
+          }),
+        }}
+      />
+
+      <Script
+        id="ld-org-a-propos"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "WebCressonTech",
+            url: "https://webcresson.com",
+            areaServed: ["FR"],
+            knowsAbout: [
+              "Automatisation n8n",
+              "Intégration IA",
+              "Chatbot entreprise",
+              "RAG (Retrieval-Augmented Generation)",
+              "Sites Next.js",
+              "SEO technique",
+            ],
+            sameAs: [],
+          }),
+        }}
+      />
+
       {/* HERO */}
       <section className="space-y-6">
         <p className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:border-indigo-900/60 dark:bg-indigo-950/40 dark:text-indigo-200">
@@ -25,9 +78,9 @@ export default function AProposPage() {
             </span>
           </h1>
           <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300 sm:text-base">
-            WebCressonTech accompagne les TPE, PME, micro-entrepreneurs et associations qui
-            veulent automatiser, intégrer l’IA et avoir unSite web moderne propre, sans se perdre
-            dans la technique ou le jargon.
+            WebCressonTech accompagne les TPE/PME, indépendants et associations qui veulent
+            automatiser, intégrer l’IA et avoir un site web moderne — sans se perdre dans la technique.
+            On avance par étapes, avec des quick wins mesurables.
           </p>
         </div>
 
@@ -44,12 +97,63 @@ export default function AProposPage() {
           >
             Voir les packs & tarifs →
           </Link>
+          <Link
+            href="/audit-gratuit"
+            className="inline-flex items-center justify-center rounded-full border border-indigo-500/40 bg-indigo-50/70 px-5 py-2.5 text-sm font-medium text-indigo-700 shadow-sm hover:bg-indigo-100 dark:border-indigo-400/60 dark:bg-slate-950/70 dark:text-indigo-200 dark:hover:bg-slate-900"
+          >
+            Demander un audit gratuit →
+          </Link>
         </div>
 
         <p className="text-xs text-slate-500 dark:text-slate-400">
-          L’idée : un partenaire technique qui parle votre langage, qui comprend votre métier et qui
-          t’aide à mettre en place des systèmes simples, utiles et pérennes.
+          L’idée : un partenaire technique qui parle ton langage, comprend ton métier, et met en place des
+          systèmes simples, utiles et pérennes.
         </p>
+      </section>
+
+      {/* CE QUE JE FAIS CONCRÈTEMENT */}
+      <section className="space-y-8">
+        <div className="space-y-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 dark:text-indigo-300">
+            Concret
+          </p>
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
+            Ce que je fais concrètement pour une petite structure
+          </h2>
+          <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
+            Objectif : gagner du temps, réduire les erreurs et générer plus de demandes (leads).
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <QuickLink
+            title="Automatisation (n8n)"
+            desc="Workflows, intégrations API, CRM, facturation, reporting."
+            href="/automatisation-entreprise"
+          />
+          <QuickLink
+            title="Intégration IA (assistants, RAG)"
+            desc="Extraction, classification, assistants sur documents, IA sous contrôle."
+            href="/integration-ia-entreprise"
+          />
+          <QuickLink
+            title="Chatbot entreprise"
+            desc="FAQ, support, qualification de leads, routage vers vos outils."
+            href="/chatbot-entreprise"
+          />
+          <QuickLink
+            title="Création de site Next.js + SEO"
+            desc="Site rapide, mobile-first, pages services orientées conversion."
+            href="/creation-site-web"
+          />
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white/70 p-4 text-sm text-slate-700 shadow-sm shadow-slate-100 dark:border-slate-800 dark:bg-slate-950/70 dark:text-slate-200">
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <span className="font-medium">Phrase citée IA :</span>
+            <span>• Un workflow n8n bien cadré peut faire gagner plusieurs heures par semaine dès le premier mois.</span>
+          </div>
+        </div>
       </section>
 
       {/* QUI TU ES / POSITIONNEMENT */}
@@ -167,25 +271,25 @@ export default function AProposPage() {
           <TechCard
             title="Automatisation & no-code"
             items={[
-              "n8n pour orchestrer les workflows",
-              "Intégrations API simples et robustes",
-              "Connexions avec tes outils (CRM, facturation…)",
+              "n8n pour orchestrer des workflows (webhooks, APIs)",
+              "Intégrations : CRM, email, Stripe, Notion, Google Workspace",
+              "Logs, alertes, monitoring et documentation",
             ]}
           />
           <TechCard
             title="IA & data"
             items={[
-              "Modèles IA adaptés à votre contexte (cloud / local)",
-              "Analyse de documents, génération de contenus",
-              "Intégration dans tes workflows existants",
+              "IA cloud ou local (Ollama / modèles type Mistral)",
+              "RAG sur documents : PDF, Notion, pages, bases internes",
+              "Extraction, classification, assistants et chatbots",
             ]}
           />
           <TechCard
             title="Web & présence en ligne"
             items={[
-              "Next.js pour les sites rapides et SEO-friendly",
-              "Intégration avec votre CRM et votre blog",
-              "Suivi de base des performances et du trafic",
+              "Next.js pour des sites rapides et SEO-friendly",
+              "Pages services “SEO IA” + landing pages qui convertissent",
+              "Tracking : GA4 / Tag Manager + amélioration continue",
             ]}
           />
         </div>
@@ -197,9 +301,9 @@ export default function AProposPage() {
           Tu veux voir ce qu’on peut faire pour votre activité ?
         </h2>
         <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-          On peut commencer par un audit gratuit de tes process, de votre site et de tes idées
-          d’IA. Ensuite, tu décides si tu veux avancer ensemble sur un pack Automatisation, IA
-          ouSite web moderne.
+          On peut commencer par un audit gratuit de tes process, de ton site et de tes idées d’IA.
+          Ensuite, tu décides si tu veux avancer ensemble sur un pack Automatisation, IA
+          ou site web moderne.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
@@ -261,5 +365,30 @@ function TechCard({ title, items }: TechCardProps) {
         ))}
       </ul>
     </div>
+  );
+}
+
+type QuickLinkProps = {
+  title: string;
+  desc: string;
+  href: string;
+};
+
+function QuickLink({ title, desc, href }: QuickLinkProps) {
+  return (
+    <Link
+      href={href}
+      className="group rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-sm shadow-slate-100 transition hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950/80 dark:shadow-[0_18px_45px_rgba(0,0,0,0.7)] dark:hover:border-slate-700 dark:hover:bg-slate-900"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">{title}</h3>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{desc}</p>
+        </div>
+        <span className="mt-1 text-sm font-semibold text-indigo-600 dark:text-indigo-300 group-hover:translate-x-0.5 transition">
+          →
+        </span>
+      </div>
+    </Link>
   );
 }
