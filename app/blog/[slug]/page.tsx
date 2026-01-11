@@ -1,5 +1,6 @@
 // app/blog/[slug]/page.tsx
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
@@ -14,9 +15,26 @@ type BlogPost = {
   createdAt?: string;
 };
 
+async function getBaseUrl() {
+  // Next 16: `headers()` can be async (sync dynamic APIs)
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? "https";
+
+  // Fallback local/dev
+  if (!host) return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+  return `${proto}://${host}`;
+}
+
+async function fetchJson<T>(path: string): Promise<Response> {
+  const base = await getBaseUrl();
+  return fetch(`${base}${path}`, { cache: "no-store" });
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const res = await fetch(`/api/blog/${encodeURIComponent(slug)}`, { cache: "no-store" });
+    const res = await fetchJson(`/api/blog/${encodeURIComponent(slug)}`);
     if (!res.ok) return {};
     const { post } = (await res.json()) as any;
   
@@ -27,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
   
 async function getPost(slug: string) {
-  const res = await fetch(`/api/blog/${encodeURIComponent(slug)}`, { cache: "no-store" });
+  const res = await fetchJson(`/api/blog/${encodeURIComponent(slug)}`);
   if (res.status === 404) return null;
   if (!res.ok) throw new Error("Failed to fetch post");
   return (await res.json()) as { post: BlogPost };
