@@ -13,47 +13,51 @@ type BlogPost = {
   metaDescription?: string | null;
   tags?: string[];
   createdAt?: string;
+  status?: "DRAFT" | "PUBLISHED" | string;
 };
 
 async function getBaseUrl() {
-  // Next 16: `headers()` can be async (sync dynamic APIs)
+  // Next 16: headers() peut être async selon ton build/tooling
   const h = await headers();
-  const host = h.get("x-forwarded-host") ?? h.get("host");
-  const proto = h.get("x-forwarded-proto") ?? "https";
-
-  // Fallback local/dev
-  if (!host) return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-
+  const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
+  const proto = h.get("x-forwarded-proto") ?? "http";
   return `${proto}://${host}`;
 }
 
-async function fetchJson<T>(path: string): Promise<Response> {
-  const base = await getBaseUrl();
-  return fetch(`${base}${path}`, { cache: "no-store" });
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const baseUrl = await getBaseUrl();
+
+  const res = await fetch(`${baseUrl}/api/blog/${encodeURIComponent(slug)}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) return {};
+  const { post } = (await res.json()) as { post: BlogPost };
+
+  return {
+    title: post.metaTitle ?? post.title,
+    description: post.metaDescription ?? post.excerpt ?? "",
+  };
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
-    const res = await fetchJson(`/api/blog/${encodeURIComponent(slug)}`);
-    if (!res.ok) return {};
-    const { post } = (await res.json()) as any;
-  
-    return {
-      title: post.metaTitle ?? post.title,
-      description: post.metaDescription ?? post.excerpt ?? "",
-    };
-  }
-  
 async function getPost(slug: string) {
-  const res = await fetchJson(`/api/blog/${encodeURIComponent(slug)}`);
+  const baseUrl = await getBaseUrl();
+
+  const res = await fetch(`${baseUrl}/api/blog/${encodeURIComponent(slug)}`, {
+    cache: "no-store",
+  });
+
   if (res.status === 404) return null;
   if (!res.ok) throw new Error("Failed to fetch post");
   return (await res.json()) as { post: BlogPost };
 }
 
 function simpleMarkdownToHtml(md: string) {
-  // mini rendu (safe) : titres + paragraphes + listes basiques
-  // si tu veux du vrai markdown: je te mets next-mdx-remote / react-markdown après
   const esc = (s: string) =>
     s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -65,27 +69,42 @@ function simpleMarkdownToHtml(md: string) {
     const line = raw.trimEnd();
 
     if (/^###\s+/.test(line)) {
-      if (inUl) { html += "</ul>"; inUl = false; }
+      if (inUl) {
+        html += "</ul>";
+        inUl = false;
+      }
       html += `<h3>${esc(line.replace(/^###\s+/, ""))}</h3>`;
       continue;
     }
     if (/^##\s+/.test(line)) {
-      if (inUl) { html += "</ul>"; inUl = false; }
+      if (inUl) {
+        html += "</ul>";
+        inUl = false;
+      }
       html += `<h2>${esc(line.replace(/^##\s+/, ""))}</h2>`;
       continue;
     }
     if (/^- /.test(line)) {
-      if (!inUl) { html += "<ul>"; inUl = true; }
+      if (!inUl) {
+        html += "<ul>";
+        inUl = true;
+      }
       html += `<li>${esc(line.replace(/^- /, ""))}</li>`;
       continue;
     }
     if (line === "" || /^---$/.test(line)) {
-      if (inUl) { html += "</ul>"; inUl = false; }
+      if (inUl) {
+        html += "</ul>";
+        inUl = false;
+      }
       if (/^---$/.test(line)) html += "<hr />";
       continue;
     }
 
-    if (inUl) { html += "</ul>"; inUl = false; }
+    if (inUl) {
+      html += "</ul>";
+      inUl = false;
+    }
     html += `<p>${esc(line)}</p>`;
   }
 
@@ -93,18 +112,27 @@ function simpleMarkdownToHtml(md: string) {
   return html;
 }
 
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params; // IMPORTANT Next 16: params est une Promise
-  const data = await getPost(slug);
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
+  const data = await getPost(slug);
   if (!data?.post) notFound();
 
   const p = data.post;
+
+  // si ton API renvoie 404 pour DRAFT, tu n’iras jamais ici.
+  // mais si un jour tu changes l'API, ça protège quand même :
+  if (p.status && p.status !== "PUBLISHED") notFound();
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
       <div className="mb-8">
         <h1 className="text-3xl font-semibold">{p.title}</h1>
+
         {p.createdAt ? (
           <p className="mt-2 text-sm opacity-70">
             {new Date(p.createdAt).toLocaleDateString("fr-FR")}
@@ -114,7 +142,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         {!!p.tags?.length ? (
           <div className="mt-3 flex flex-wrap gap-2">
             {p.tags.map((t) => (
-              <span key={t} className="rounded-full border px-2 py-1 text-xs opacity-80">
+              <span
+                key={t}
+                className="rounded-full border px-2 py-1 text-xs opacity-80"
+              >
                 {t}
               </span>
             ))}
